@@ -1,4 +1,4 @@
-package pl.coderslab.app;
+package pl.charity.app;
 
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
