@@ -22,17 +22,17 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category findById(Long id) {
-        return null;
+        return categoryRepository.findOne(id);
     }
 
     @Override
     public Category findByName(String name) {
-        return null;
+        return categoryRepository.findFirstByName(name);
     }
 
     @Override
     public List<Category> findAll() {
-        return null;
+        return categoryRepository.findAll();
     }
 
     @Override
@@ -42,9 +42,9 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
 
-
     @Override
     public void deleteById(Long id) {
-        Category category = categoryRepository.findOne(id);
+        categoryRepository.delete(categoryRepository.findOne(id));
+
     }
 }

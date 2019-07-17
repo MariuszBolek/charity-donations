@@ -26,7 +26,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     @Bean
     public LocalEntityManagerFactoryBean entityManagerFactory() {
         LocalEntityManagerFactoryBean emfb = new LocalEntityManagerFactoryBean();
-        emfb.setPersistenceUnitName("fundationsPersistenceUnit");
+        emfb.setPersistenceUnitName("charity-donationPersistenceUnit");
         return emfb;
     }
 
