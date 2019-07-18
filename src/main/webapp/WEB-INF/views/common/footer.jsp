@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <footer>
     <div id="contact" class="contact">
         <h2>Skontaktuj się z nami</h2>
@@ -14,10 +15,10 @@
     <div class="bottom-line">
         <span class="bottom-line--copy">Copyright &copy; 2018</span>
         <div class="bottom-line--icons">
-            <a href="#" class="btn btn--small"><img src="static/images/icon-facebook.svg"/></a> <a href="#" class="btn btn--small"><img src="static/images/icon-instagram.svg"/></a>
+            <a href="#" class="btn btn--small"><img src="<c:url value="resources/static/images/icon-facebook.svg"/>" /> <a href="#" class="btn btn--small"></a> <img src="<c:url value="resources/static/images/icon-instagram.svg"/>" /></a>
         </div>
     </div>
 </footer>
 
-<script src="js/app.js"></script>
+<script src="resources/static/js/app.js"></script>
 
