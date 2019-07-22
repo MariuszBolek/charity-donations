@@ -1,11 +1,12 @@
 package pl.charity.entity;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import pl.charity.repository.CategoryRepository;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Entity
@@ -13,25 +14,14 @@ import java.util.List;
 public class Donation {
 
 
-//    id
-//    quantity (liczba worków)
-//    categories (lista obiektów typu Category), pamiętaj o odpowiedniej adnotacji
-//    institution (obiekt typu Institution), pamiętaj o odpowiedniej adnotacji.
-//    street
-//            city
-//    zipCode
-//            pickUpDate
-//    pickUpTime
-//            pickUpComment
 
-    @Autowired
-    CategoryRepository categoryRepository;
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
+    @Column(name = "Quantity")
     private Double quantity;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -44,9 +34,11 @@ public class Donation {
 
     private String zipCode;
 
-    private LocalDateTime pickUpDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate pickUpDate;
 
-    private LocalDateTime pickUpTime;
+    @DateTimeFormat(pattern = "hh-mm")
+    private LocalTime pickUpTime;
 
     public Long getId() {
         return id;
@@ -96,19 +88,19 @@ public class Donation {
         this.zipCode = zipCode;
     }
 
-    public LocalDateTime getPickUpDate() {
+    public LocalDate getPickUpDate() {
         return pickUpDate;
     }
 
-    public void setPickUpDate(LocalDateTime pickUpDate) {
+    public void setPickUpDate(LocalDate pickUpDate) {
         this.pickUpDate = pickUpDate;
     }
 
-    public LocalDateTime getPickUpTime() {
+    public LocalTime getPickUpTime() {
         return pickUpTime;
     }
 
-    public void setPickUpTime(LocalDateTime pickUpTime) {
+    public void setPickUpTime(LocalTime pickUpTime) {
         this.pickUpTime = pickUpTime;
     }
 }

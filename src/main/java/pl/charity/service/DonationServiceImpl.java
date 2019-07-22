@@ -1,5 +1,6 @@
 package pl.charity.service;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import pl.charity.entity.Category;
 import pl.charity.entity.Donation;
@@ -52,5 +53,11 @@ public class DonationServiceImpl implements DonationService{
     @Override
     public void deleteById(Long id) {
         donationRepository.delete(donationRepository.findOne(id));
+    }
+
+    @Override
+    public Double sumDonations() {
+
+        return donationRepository.sumDonations();
     }
 }

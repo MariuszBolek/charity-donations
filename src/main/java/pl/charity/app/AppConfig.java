@@ -10,7 +10,9 @@ import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.LocaleContextResolver;
 import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.resource.ResourceResolver;
@@ -35,6 +37,12 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         return emfb;
     }
 
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/resources/**")
+                .addResourceLocations("/resources/");
+    }
+
     @Bean
     public JpaTransactionManager transactionManager(EntityManagerFactory emf) {
         JpaTransactionManager tm = new JpaTransactionManager(emf);
@@ -49,26 +57,16 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         return viewResolver;
     }
 
-    @Bean
-    public ResourceResolver resourceResolver() {
-        ResourceResolver viewResolver = new ResourceResolver() {
-            @Override
-            public Resource resolveResource(HttpServletRequest request, String requestPath, List<? extends Resource> locations, ResourceResolverChain chain) {
-                return null;
-            }
-
-            @Override
-            public String resolveUrlPath(String resourcePath, List<? extends Resource> locations, ResourceResolverChain chain) {
-                return null;
-            }
-        };
-        return viewResolver;
-    }
 
     @Bean(name = "localeResolver")
     public LocaleContextResolver getLocaleContextResolver() {
         SessionLocaleResolver localeResolver = new SessionLocaleResolver();
         localeResolver.setDefaultLocale(new Locale("pl", "PL"));
         return localeResolver;
+    }
+
+    @Override
+    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+        configurer.enable();
     }
 }

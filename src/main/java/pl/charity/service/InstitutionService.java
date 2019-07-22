@@ -16,4 +16,6 @@ public interface InstitutionService {
     Institution saveinstitution(Institution institution);
 
     void deleteById(Long id);
+
+    Integer countInstitutions();
 }

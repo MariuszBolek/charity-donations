@@ -43,4 +43,10 @@ public class InstitutionServiceImpl implements InstitutionService {
         institutionRepository.delete(institutionRepository.findOne(id));
 
     }
+
+    @Override
+    public Integer countInstitutions() {
+
+        return institutionRepository.countInstitutions();
+    }
 }

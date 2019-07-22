@@ -24,4 +24,8 @@ public interface DonationService {
     Donation saveDonation(Donation donation);
 
     void deleteById(Long id);
+
+    Double sumDonations();
+
+
 }

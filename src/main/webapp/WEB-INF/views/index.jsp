@@ -1,4 +1,5 @@
 <%@    taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <!DOCTYPE html>
@@ -10,14 +11,15 @@
 <section id="stats" class="stats">
     <div class="container container--85">
         <div class="stats--item">
-            <em>10</em>
+
             <h3>Oddanych worków</h3>
+            <em><c:out value="${total}" /></em>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius est beatae, quod accusamus illum
                 tempora!</p>
         </div>
 
         <div class="stats--item">
-            <em>5</em>
+            <em><c:out value="${count}"/> <em>
             <h3>Wspartych organizacji</h3>
             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam magnam, sint nihil cupiditate quas
                 quam.</p>
@@ -60,9 +62,9 @@
         <h2>O nas</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas vitae animi rem pariatur incidunt libero
             optio esse quisquam illo omnis.</p>
-        <img src="<c:url value="resources/static/images/signature"/>" class="about-us--text-signature" alt="Signature"/>
+        <img src="<c:url value="static/images/signature.svg"/>" class="about-us--text-signature" alt="Signature"/>
     </div>
-    <div class="about-us--image"><c:url value="resources/static/images/about-us"/>" alt="People in circle" /></div>
+    <div class="about-us--image"><img src="<c:url value="static/images/about-us.jpg"/>" alt="People in circle" /></div>
 </section>
 
 <section id="help" class="help">
@@ -73,20 +75,15 @@
         <p>W naszej bazie znajdziesz listę zweryfikowanych Fundacji, z którymi współpracujemy.
             Możesz sprawdzić czym się zajmują.</p>
 
-        <ul class="help--slides-items">
-            <c:forEach items="${institutions}" var="institution" varStatus="counter">
+<%--        <ul class="help--slides-items">--%>
+<%--        <c:forEach begin="0" end="institutions.size()" varStatus="loop" step="2">--%>
+<%--            <li><c:forEach var="institution" items="${institutions}" >--%>
+<%--                <c:out value="${institution.getName}"/>--%>
+<%--                <c:out value="${institution.getDescription}"/>--%>
+<%--            </c:forEach></li>--%>
+<%--        </c:forEach>--%>
 
-                <li>
-                    <div class="col">
-                        <div class="title"><c:out value="${institution.name}"/></div>
-                        <div class="subtitle"><c:out value="${institution.description}"/></div>
-                    </div>
-                </li>
-                <c:if test="${counter.count % 2 == 0}">
-                    <br/>
-                </c:if>
-            </c:forEach>
-        </ul>
+<%--        </ul>--%>
     </div>
 
 </section>
