@@ -32,16 +32,16 @@ public class HomeController {
         this.institutionService = institutionService;
     }
 
-    @RequestMapping("/")
+    @RequestMapping(value = {"/", "/index"})
     public String homePage(Model model, HttpSession session) {
-        Double total = donationService.sumDonations();
+        Integer total = donationService.sumDonations();
         model.addAttribute("total", total);
 
         Integer count = institutionService.countInstitutions();
         model.addAttribute("count", count);
 
         List<Institution> institutions = institutionService.findAll();
-        model.addAttribute(institutions);
+        model.addAttribute("institutions", institutions);
 
 
         return "index";

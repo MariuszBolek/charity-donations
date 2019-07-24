@@ -4,6 +4,7 @@ import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.DispatcherServlet;
+import pl.charity.fixtures.FundationsFixture;
 
 import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
@@ -18,6 +19,10 @@ public class AppInitializer implements WebApplicationInitializer {
         ServletRegistration.Dynamic servlet = container.addServlet("dispatcher", new DispatcherServlet(ctx));
         servlet.setLoadOnStartup(1);
         servlet.addMapping("/");
+
+//        ctx.refresh();
+//        ctx.getBean(FundationsFixture.class).initData();
+//        ctx.refresh();
 
         FilterRegistration.Dynamic fr = container.addFilter("encodingFilter",
                 new CharacterEncodingFilter());

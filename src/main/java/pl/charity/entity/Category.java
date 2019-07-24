@@ -15,6 +15,7 @@ public class Category {
     @NotBlank
     private String name;
 
+
     public Long getId() {
         return id;
     }
@@ -30,4 +31,6 @@ public class Category {
     public void setName(String name) {
         this.name = name;
     }
+
+
 }

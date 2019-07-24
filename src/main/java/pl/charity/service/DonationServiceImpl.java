@@ -20,6 +20,11 @@ public class DonationServiceImpl implements DonationService{
     }
 
     @Override
+    public Donation findFirstById(Long id) {
+        return donationRepository.findFirstById(id);
+    }
+
+    @Override
     public List<Donation> findByCategories(List<Category> categories) {
         return donationRepository.findAllByCategories(categories);
     }
@@ -56,8 +61,12 @@ public class DonationServiceImpl implements DonationService{
     }
 
     @Override
-    public Double sumDonations() {
+    public Integer sumDonations() {
 
         return donationRepository.sumDonations();
     }
+
+
+
+
 }

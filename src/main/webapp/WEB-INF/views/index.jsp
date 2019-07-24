@@ -11,18 +11,19 @@
 <section id="stats" class="stats">
     <div class="container container--85">
         <div class="stats--item">
-
+            <em><c:out value="${total}"/></em>
             <h3>Oddanych worków</h3>
-            <em><c:out value="${total}" /></em>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius est beatae, quod accusamus illum
                 tempora!</p>
         </div>
 
         <div class="stats--item">
-            <em><c:out value="${count}"/> <em>
-            <h3>Wspartych organizacji</h3>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam magnam, sint nihil cupiditate quas
-                quam.</p>
+            <em>
+                <c:out value="${count}"/> <em>
+                <h3>Wspartych organizacji</h3>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam magnam, sint nihil cupiditate
+                    quas
+                    quam.</p>
         </div>
 
     </div>
@@ -64,7 +65,7 @@
             optio esse quisquam illo omnis.</p>
         <img src="<c:url value="static/images/signature.svg"/>" class="about-us--text-signature" alt="Signature"/>
     </div>
-    <div class="about-us--image"><img src="<c:url value="static/images/about-us.jpg"/>" alt="People in circle" /></div>
+    <div class="about-us--image"><img src="<c:url value="static/images/about-us.jpg"/>" alt="People in circle"/></div>
 </section>
 
 <section id="help" class="help">
@@ -75,15 +76,24 @@
         <p>W naszej bazie znajdziesz listę zweryfikowanych Fundacji, z którymi współpracujemy.
             Możesz sprawdzić czym się zajmują.</p>
 
-<%--        <ul class="help--slides-items">--%>
-<%--        <c:forEach begin="0" end="institutions.size()" varStatus="loop" step="2">--%>
-<%--            <li><c:forEach var="institution" items="${institutions}" >--%>
-<%--                <c:out value="${institution.getName}"/>--%>
-<%--                <c:out value="${institution.getDescription}"/>--%>
-<%--            </c:forEach></li>--%>
-<%--        </c:forEach>--%>
+        <ul class="help--slides-items">
 
-<%--        </ul>--%>
+            <c:forEach var="index" begin="0" end="${institutions.size()-1}" varStatus="loop" step="2">
+                <li>
+                <div class="col">
+                    <div class="title"><c:out value="${institutions.get(index).name}"/></div>
+                    <div class="subtitle">Cel i Misja; <c:out value="${institutions.get(index).description}"/></div>
+                </div>
+
+
+                <div class="col">
+                    <div class="title"><c:out value="${institutions.get(index+1).name}"/></div>
+                    <div class="subtitle">Cel i Misja: <c:out value="${institutions.get(index+1).description}"/></div>
+                </div>
+                </li>
+            </c:forEach>
+
+        </ul>
     </div>
 
 </section>

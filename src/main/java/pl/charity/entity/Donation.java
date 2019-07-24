@@ -3,8 +3,10 @@ package pl.charity.entity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import pl.charity.repository.CategoryRepository;
+import pl.charity.validation.DonationValidationClass;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -22,9 +24,10 @@ public class Donation {
     private Long id;
 
     @Column(name = "Quantity")
+
     private Double quantity;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany
     private List<Category> categories;
 
     @ManyToOne
@@ -32,13 +35,19 @@ public class Donation {
 
     private String street;
 
+    private String city;
+
     private String zipCode;
+
+    private String phone;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate pickUpDate;
 
     @DateTimeFormat(pattern = "hh-mm")
     private LocalTime pickUpTime;
+
+    private String comments;
 
     public Long getId() {
         return id;
@@ -80,12 +89,28 @@ public class Donation {
         this.street = street;
     }
 
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
     public String getZipCode() {
         return zipCode;
     }
 
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public LocalDate getPickUpDate() {
@@ -102,5 +127,13 @@ public class Donation {
 
     public void setPickUpTime(LocalTime pickUpTime) {
         this.pickUpTime = pickUpTime;
+    }
+
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
     }
 }

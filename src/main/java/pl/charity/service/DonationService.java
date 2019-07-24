@@ -11,6 +11,8 @@ import java.util.List;
 @Service
 public interface DonationService {
 
+    Donation findFirstById(Long id);
+
     List<Donation> findByCategories(List<Category> categories);
 
     List<Donation> findByInstitution(Institution institution);
@@ -25,7 +27,11 @@ public interface DonationService {
 
     void deleteById(Long id);
 
-    Double sumDonations();
+    Integer sumDonations();
+
+
+
+
 
 
 }
