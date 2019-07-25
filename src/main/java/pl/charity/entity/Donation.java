@@ -33,6 +33,9 @@ public class Donation {
     @ManyToOne
     private Institution institution;
 
+    @ManyToOne
+    private User user;
+
     private String street;
 
     private String city;
@@ -135,5 +138,13 @@ public class Donation {
 
     public void setComments(String comments) {
         this.comments = comments;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

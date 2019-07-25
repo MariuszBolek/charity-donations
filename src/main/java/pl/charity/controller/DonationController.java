@@ -67,6 +67,6 @@ public class DonationController {
     }
 
 
-
+//<script> var formData = new FormData(document.querySelector('form')) var object = {}; formData.forEach(function(value, key){ object[key] = value; }); /* Tutaj musisz wyszukać odpowiednie pola i ustawić ich innerText na odpowiednie value z zmiennej object. A spróbuj nie zrobić */ </scrip>
 
 }

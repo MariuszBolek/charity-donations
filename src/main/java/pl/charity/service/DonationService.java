@@ -8,7 +8,7 @@ import pl.charity.entity.Institution;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Service
+
 public interface DonationService {
 
     Donation findFirstById(Long id);
