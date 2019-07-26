@@ -115,6 +115,7 @@ document.addEventListener("DOMContentLoaded", function() {
     init() {
       this.events();
       this.updateForm();
+      this.summary();
     }
 
     /**
@@ -165,6 +166,31 @@ document.addEventListener("DOMContentLoaded", function() {
 
       // TODO: get data from inputs and show them in summary
     }
+
+    summary() {
+      document.getElementById("street").addEventListener("input", function() {
+        document.getElementById("streetSum").innerText = this.value;
+      });
+      document.getElementById("city").addEventListener("input", function() {
+        document.getElementById("citySum").innerText = this.value;
+      });
+      document.getElementById("zipCode").addEventListener("input", function() {
+        document.getElementById("zipSum").innerText = this.value;
+      });
+      document.getElementById("phone").addEventListener("input", function() {
+        document.getElementById("phoneSum").innerText = this.value;
+      });
+      document.getElementById("pickUpDate").addEventListener("input", function() {
+        document.getElementById("dateSum").innerText = this.value;
+      });
+      document.getElementById("pickUpTime").addEventListener("input", function() {
+        document.getElementById("timeSum").innerText = this.value;
+      });
+      document.getElementById("comments").addEventListener("input", function() {
+        document.getElementById("commentsSum").innerText = this.value;
+      });
+    }
+
 
   }
   const form = document.querySelector(".form--steps");

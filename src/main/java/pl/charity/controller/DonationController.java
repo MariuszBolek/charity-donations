@@ -54,8 +54,6 @@ public class DonationController {
             return "/form";
         }
 
-//        donationService.saveDonation(donation);
-//        System.out.println(donation);
         return "redirect:/form-confirmation";
     }
 

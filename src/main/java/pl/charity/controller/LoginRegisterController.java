@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.charity.entity.Donation;
 import pl.charity.entity.User;
@@ -21,13 +22,14 @@ public class LoginRegisterController {
     @GetMapping(path = "/register")
     public String showRegisterForm(Model model) {
         model.addAttribute("user", new User());
-        return "/register";
+        return "register";
     }
 
     @PostMapping(path = "/register")
-    public String saveUser(@ModelAttribute User user, BindingResult result, @RequestParam String password2) {
+    public String saveUser( User user, BindingResult result, @RequestParam String password2) {
         if (result.hasErrors()) {
-            return "/register";
+
+            return "register";
         }
 
         User existingUser = userService.findFirstByEmail(user.getEmail());
@@ -35,24 +37,34 @@ public class LoginRegisterController {
         if (existingUser != null) {
             result.addError(new FieldError("user", "email",
                     "Podany e-mail jest już zajęty"));
-            return "/register";
+            return "register";
         }
 
         if (!user.getPassword().equals(password2)) {
             result.addError(new FieldError("user", "password",
                     "Hasła różnią się od siebie"));
-            return "/register";
+            return "register";
         }
 
         userService.saveUser(user);
 
-        return "redirect:login";
+        return "redirect:/login";
     }
 
-    @RequestMapping(path = "/login", method = RequestMethod.GET)
-    public String formConfirm() {
+    @GetMapping(path = "login")
+    public String getLogin() {
 
-        return "/login";
+        return "login";
     }
+
+    @PostMapping(path = "/login")
+    public String postLogin(Model model) {
+        model.addAttribute("error", "error");
+
+        return "login";
+
+    }
+
+
 
 }

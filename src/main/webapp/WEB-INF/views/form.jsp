@@ -31,7 +31,7 @@
     <div class="form--steps-container">
         <div class="form--steps-counter">Krok <span>1</span>/4</div>
 
-        <c:url var="result" value="form-confirmation" />
+        <c:url var="result" value="form-confirmation"/>
         <form:form action="${result}" method="post" modelAttribute="donation">
             <!-- STEP 1: class .active is switching steps -->
             <div data-step="1" class="active">
@@ -65,7 +65,7 @@
                     <label>
                         Liczba 60l worków:
                     </label>
-                        <form:input type="number" name="quantity" step="1" min="1" path="quantity"/>
+                    <form:input type="number" name="quantity" step="1" min="1" path="quantity"/>
 
                 </div>
 
@@ -108,7 +108,7 @@
                     <div class="form-section--column">
                         <h4>Adres odbioru</h4>
                         <div class="form-group form-group--inline">
-                            
+
                             <label> Ulica <form:input type="text" name="street" path="street"/> </label>
                         </div>
 
@@ -156,6 +156,10 @@
 
             <!-- STEP 6 -->
             <div data-step="5">
+<%--                <script> let formData = new FormData(document.querySelector('form'));--%>
+<%--                let object = {}; formData.forEach(function(value, key){ object[key] = value; });--%>
+
+<%--                </script>--%>
                 <h3>Podsumowanie Twojej darowizny</h3>
 
                 <div class="summary">
@@ -164,16 +168,14 @@
                         <ul>
                             <li>
                                 <span class="icon icon-bag"></span>
-                                <span class="summary--text"
-                                >${donation.quantity}  </span
+                                <span class="summary--text" id="categorySum"
+                                >  </span
                                 >
                             </li>
 
                             <li>
                                 <span class="icon icon-hand"></span>
-                                <span class="summary--text"
-<%--                                >Dla fundacji <c:out value="${donation.institution}" /></span--%>
-                                >
+                                Dla fundacji: <span class="summary--text" id="institutionSum">  </span>
                             </li>
                         </ul>
                     </div>
@@ -182,19 +184,19 @@
                         <div class="form-section--column">
                             <h4>Adres odbioru:</h4>
                             <ul>
-<%--                                <li><c:out value="${donation.street}" /> </li>--%>
-<%--                                <li><c:out value="${donation.city}" /></li>--%>
-<%--                                <li><c:out value="${donation.zipCode}" /> </li>--%>
-<%--                                <li><c:out value="${donation.phone}"  /></li>--%>
-<%--                            </ul>--%>
-<%--                        </div>--%>
+                                <li id="streetSum"> </li>
+                                <li id="citySum"> </li>
+                                <li id="zipSum"> </li>
+                                <li id="phoneSum"></li>
+                            </ul>
+                        </div>
 
-<%--                        <div class="form-section--column">--%>
-<%--                            <h4>Termin odbioru:</h4>--%>
-<%--                            <ul>--%>
-<%--                                <li><c:out value="${donation.pickUpDate}" /></li>--%>
-<%--                                <li><c:out value="${donation.pickUpTime}" /></li>--%>
-                                <li>Brak uwag</li>
+                        <div class="form-section--column">
+                            <h4>Termin odbioru:</h4>
+                            <ul>
+                                <li id="dateSum"> </li>
+                                <li id="timeSum"> </li>
+                                <li id="commentsSum"> </li>
                             </ul>
                         </div>
                     </div>

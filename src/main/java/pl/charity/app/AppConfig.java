@@ -18,6 +18,8 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.resource.ResourceResolver;
 import org.springframework.web.servlet.resource.ResourceResolverChain;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import pl.charity.converters.CategoryConverter;
+import pl.charity.converters.InstitutionConverter;
 
 import javax.persistence.EntityManagerFactory;
 import javax.servlet.http.HttpServletRequest;
@@ -64,6 +66,17 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         localeResolver.setDefaultLocale(new Locale("pl", "PL"));
         return localeResolver;
     }
+
+    @Bean
+    public InstitutionConverter getInstitutionConverter() {
+        return new InstitutionConverter();
+    }
+
+    @Bean
+    public CategoryConverter getCategoryConverter() {
+        return new CategoryConverter();
+    }
+
 
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {

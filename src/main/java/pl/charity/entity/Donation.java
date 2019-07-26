@@ -16,18 +16,17 @@ import java.util.List;
 public class Donation {
 
 
-
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "Quantity")
 
-    private Double quantity;
+    private Integer quantity;
 
-    @OneToMany
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(joinColumns = @JoinColumn(name = "donations_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
     private List<Category> categories;
 
     @ManyToOne
@@ -40,15 +39,19 @@ public class Donation {
 
     private String city;
 
+    @Column(name = "zip_code")
     private String zipCode;
 
     private String phone;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "pick_up_date")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate pickUpDate;
 
-    @DateTimeFormat(pattern = "hh-mm")
+    @Column(name = "pick_up_time")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
     private LocalTime pickUpTime;
+
 
     private String comments;
 
@@ -60,11 +63,11 @@ public class Donation {
         this.id = id;
     }
 
-    public Double getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Double quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 
