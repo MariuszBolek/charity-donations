@@ -78,17 +78,17 @@
 
         <ul class="help--slides-items">
 
-            <c:forEach var="index" begin="0" end="${institutions.size()-1}" varStatus="loop" step="2">
+            <c:forEach var="index" begin="0" end="${institution.size()-1}" varStatus="loop" step="2">
                 <li>
                 <div class="col">
-                    <div class="title"><c:out value="${institutions.get(index).name}"/></div>
-                    <div class="subtitle">Cel i Misja; <c:out value="${institutions.get(index).description}"/></div>
+                    <div class="title"><c:out value="${institution.get(index).name}"/></div>
+                    <div class="subtitle">Cel i Misja; <c:out value="${institution.get(index).description}"/></div>
                 </div>
 
 
                 <div class="col">
-                    <div class="title"><c:out value="${institutions.get(index+1).name}"/></div>
-                    <div class="subtitle">Cel i Misja: <c:out value="${institutions.get(index+1).description}"/></div>
+                    <div class="title"><c:out value="${institution.get(index+1).name}"/></div>
+                    <div class="subtitle">Cel i Misja: <c:out value="${institution.get(index+1).description}"/></div>
                 </div>
                 </li>
             </c:forEach>

@@ -57,6 +57,11 @@ public class DonationServiceImpl implements DonationService {
     }
 
     @Override
+    public Donation getNewDonation() {
+        return new Donation();
+    }
+
+    @Override
     public void deleteById(Long id) {
         donationRepository.delete(donationRepository.findOne(id));
     }

@@ -25,6 +25,8 @@ public interface DonationService {
 
     Donation saveDonation(Donation donation);
 
+    Donation getNewDonation();
+
     void deleteById(Long id);
 
     Integer sumDonations();

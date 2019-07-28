@@ -41,7 +41,7 @@ public class HomeController {
         model.addAttribute("count", count);
 
         List<Institution> institutions = institutionService.findAll();
-        model.addAttribute("institutions", institutions);
+        model.addAttribute("institution", institutions);
 
 
         return "index";

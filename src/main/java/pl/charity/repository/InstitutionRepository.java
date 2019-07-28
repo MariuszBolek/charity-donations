@@ -12,13 +12,15 @@ import java.util.List;
 public interface InstitutionRepository extends JpaRepository<Institution, Long> {
 
 
+    List<Institution> findAll();
+
     Institution findFirstByName(String name);
 
     List<Institution> findAllByName(@RequestParam("name") String name);
 
     List<Institution> findAllByDescription(@RequestParam("description") String description);
 
-    @Query(value = "select count(*) from institutions", nativeQuery = true)
+    @Query(value = "select count(*) from institution", nativeQuery = true)
     Integer countInstitutions();
 
 }

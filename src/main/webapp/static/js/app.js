@@ -168,6 +168,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     summary() {
+
       document.getElementById("street").addEventListener("input", function() {
         document.getElementById("streetSum").innerText = this.value;
       });
