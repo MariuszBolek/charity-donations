@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import pl.charity.entity.Role;
 import pl.charity.entity.User;
+import pl.charity.entity.CurrentUser;
 
 
 import java.util.HashSet;

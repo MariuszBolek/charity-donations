@@ -1,4 +1,4 @@
-package pl.charity.service;
+package pl.charity.serviceImpl;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
@@ -6,12 +6,13 @@ import pl.charity.entity.Category;
 import pl.charity.entity.Donation;
 import pl.charity.entity.Institution;
 import pl.charity.repository.DonationRepository;
+import pl.charity.service.DonationService;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-public class DonationServiceImpl implements DonationService{
+public class DonationServiceImpl implements DonationService {
 
     private final DonationRepository donationRepository;
 

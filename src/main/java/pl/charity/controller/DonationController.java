@@ -25,37 +25,49 @@ public class DonationController {
 
 
     @Autowired
-    public DonationController(CategoryService categoryService, DonationService donationService, InstitutionService institutionService) {
+    public DonationController(CategoryService categoryService,
+                              DonationService donationService,
+                              InstitutionService institutionService) {
         this.categoryService = categoryService;
         this.donationService = donationService;
         this.institutionService = institutionService;
 
     }
 
+    @ModelAttribute("institutions")
+    public List<Institution> institutions() {
+        return institutionService.findAll();
+    }
+
+    @ModelAttribute("categories")
+    public List<Category> category() {
+        return categoryService.findAll();
+    }
+
     @GetMapping("/form")
-    public String donate(Long id, Model model) {
+    public String donate(Model model) {
 
-        List<Category> categories = categoryService.findAll();
-        model.addAttribute("categories", categories);
+//        List<Category> categories = categoryService.findAll();
+//        model.addAttribute("categories", categories);
+//
+//        List<Institution> institutions = institutionService.findAll();
+//        model.addAttribute("institutions", institutions);
 
-        List<Institution> institutions = institutionService.findAll();
-        model.addAttribute("institutions", institutions);
 
-        Donation newDonation = id == null ? new Donation() : donationService.findFirstById(id);
-        model.addAttribute("donation", newDonation);
+        model.addAttribute("donation", new Donation());
 
         return "/form";
     }
 
-    @PostMapping("/form")
-    public String confirmDonate(@ModelAttribute Donation donation, BindingResult confirmBindingResult) {
-
-        if(confirmBindingResult.hasErrors()) {
-            return "/form";
-        }
-
-        return "redirect:/form-confirmation";
-    }
+//    @PostMapping("/form")
+//    public String confirmDonate(@ModelAttribute Donation donation, BindingResult confirmBindingResult) {
+//
+//        if(confirmBindingResult.hasErrors()) {
+//            return "/form";
+//        }
+//
+//        return "redirect:/form-confirmation";
+//    }
 
     @RequestMapping(path = "/form-confirmation")
     public String formConfirm(@ModelAttribute Donation donation, BindingResult confirmBindingResult) {
@@ -65,6 +77,5 @@ public class DonationController {
     }
 
 
-//<script> var formData = new FormData(document.querySelector('form')) var object = {}; formData.forEach(function(value, key){ object[key] = value; }); /* Tutaj musisz wyszukać odpowiednie pola i ustawić ich innerText na odpowiednie value z zmiennej object. A spróbuj nie zrobić */ </scrip>
 
 }

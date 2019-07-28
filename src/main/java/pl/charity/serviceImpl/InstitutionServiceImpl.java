@@ -1,9 +1,10 @@
-package pl.charity.service;
+package pl.charity.serviceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.charity.entity.Institution;
 import pl.charity.repository.InstitutionRepository;
+import pl.charity.service.InstitutionService;
 
 import java.util.List;
 

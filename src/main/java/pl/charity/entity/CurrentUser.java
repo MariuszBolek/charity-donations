@@ -1,4 +1,4 @@
-package pl.charity.service;
+package pl.charity.entity;
 
 
 import org.springframework.security.core.GrantedAuthority;

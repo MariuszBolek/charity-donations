@@ -7,6 +7,8 @@ import org.springframework.core.io.Resource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.LocaleContextResolver;
 import org.springframework.web.servlet.ViewResolver;
@@ -67,16 +69,11 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         return localeResolver;
     }
 
-    @Bean
-    public InstitutionConverter getInstitutionConverter() {
-        return new InstitutionConverter();
-    }
 
     @Bean
-    public CategoryConverter getCategoryConverter() {
-        return new CategoryConverter();
+    PasswordEncoder getEncoder() {
+        return new BCryptPasswordEncoder();
     }
-
 
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {

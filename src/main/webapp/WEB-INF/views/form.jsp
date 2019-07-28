@@ -44,11 +44,12 @@
                                     type="checkbox"
                                     name="categories"
                                     value="${category.name}"
+
                             />
                             <span class="checkbox"></span>
                             <span class="description"><c:out value="${category.name}"/></span>
                         </label>
-
+                        <br>
                     </c:forEach>
                 </div>
 
@@ -156,10 +157,10 @@
 
             <!-- STEP 6 -->
             <div data-step="5">
-<%--                <script> let formData = new FormData(document.querySelector('form'));--%>
-<%--                let object = {}; formData.forEach(function(value, key){ object[key] = value; });--%>
+                    <%--                <script> let formData = new FormData(document.querySelector('form'));--%>
+                    <%--                let object = {}; formData.forEach(function(value, key){ object[key] = value; });--%>
 
-<%--                </script>--%>
+                    <%--                </script>--%>
                 <h3>Podsumowanie Twojej darowizny</h3>
 
                 <div class="summary">
