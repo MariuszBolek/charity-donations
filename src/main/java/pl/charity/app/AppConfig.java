@@ -3,6 +3,7 @@ package pl.charity.app;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.core.io.Resource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.format.FormatterRegistry;
@@ -30,12 +31,14 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Locale;
 
+@Import({SecurityConfig.class})
 @Configuration
 @ComponentScan(basePackages = "pl.charity")
 @EnableWebMvc
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "pl.charity")
 public class AppConfig extends WebMvcConfigurerAdapter {
+
     @Bean
     public LocalEntityManagerFactoryBean entityManagerFactory() {
         LocalEntityManagerFactoryBean emfb = new LocalEntityManagerFactoryBean();
@@ -62,6 +65,8 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         viewResolver.setSuffix(".jsp");
         return viewResolver;
     }
+
+
 
 
     @Bean(name = "localeResolver")

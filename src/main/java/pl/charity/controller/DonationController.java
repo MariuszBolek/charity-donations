@@ -18,7 +18,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-@RequestMapping("/form")
+
 public class DonationController {
 
     private CategoryService categoryService;
@@ -51,28 +51,29 @@ public class DonationController {
         return donationService.getNewDonation();
     }
 
-    @GetMapping
+    @GetMapping(path = "/form")
     public String donate(Model model) {
-//        List<Category> categories = categoryService.findAll();
-//        model.addAttribute("categories", categories);
-//
-//        List<Institution> institutions = institutionService.findAll();
-//        model.addAttribute("institutions", institutions);
-//
-//        model.addAttribute("donation", new Donation());
 
         return "/form";
     }
 
-    @PostMapping("/form")
-    public String confirmDonate(Model model, @Valid Donation donation, BindingResult confirmBindingResult) {
-        System.out.println(donation.toString());
+
+    @RequestMapping(path = "/form-confirmation")
+    public String formConfirm(@ModelAttribute Donation donation, BindingResult confirmBindingResult) {
+
+
+        donationService.saveDonation(donation);
+
         if(confirmBindingResult.hasErrors()) {
             return "/form";
         }
 
-        return "redirect:/form-confirmation";
+
+        System.out.println(donation);
+        return "form-confirmation";
     }
+
+
 
 
 

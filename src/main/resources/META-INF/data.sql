@@ -11,3 +11,7 @@ INSERT INTO `charity-donation`.`category` (`name`) VALUES ('Zużyte ubrania');
 INSERT INTO `charity-donation`.`category` (`name`) VALUES ('Książki');
 INSERT INTO `charity-donation`.`category` (`name`) VALUES ('Zabawki i przyrządy sportowe');
 INSERT INTO `charity-donation`.`category` (`name`) VALUES ('Inne');
+
+INSERT INTO role(role_id, role)
+VALUES (1, 'ROLE_USER'),
+       (2, 'ROLE_ADMIN');

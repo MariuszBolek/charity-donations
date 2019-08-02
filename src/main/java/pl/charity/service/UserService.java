@@ -15,7 +15,9 @@ public interface UserService {
 
     List<User> findAllByLastName(String lastName);
 
-    User saveUser(User user);
+    void saveUser(User user);
+
+    void editUser(User user, Long id);
 
     void changepassword(Long userId, String prevPassword, String newPassword, String confirmNewPassword);
 

@@ -26,7 +26,7 @@ public class LoginRegisterController {
     }
 
     @PostMapping(path = "/register")
-    public String saveUser( User user, BindingResult result, @RequestParam String password2) {
+    public String saveUser(@ModelAttribute User user, BindingResult result, @RequestParam String password2) {
         if (result.hasErrors()) {
 
             return "register";
@@ -59,10 +59,20 @@ public class LoginRegisterController {
 
     @PostMapping(path = "/login")
     public String postLogin(Model model) {
-        model.addAttribute("error", "error");
+        model.addAttribute("error", "Błędne dane");
 
         return "login";
 
+    }
+
+    @PostMapping("/logout")
+    public String logout() {
+        return "redirect:/";
+    }
+
+    @GetMapping("/403")
+    public String forbidden() {
+        return "403";
     }
 
 
