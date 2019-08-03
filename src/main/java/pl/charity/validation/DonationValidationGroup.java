@@ -1,4 +1,4 @@
 package pl.charity.validation;
 
-public class DonationValidationGroup {
+public interface DonationValidationGroup {
 }

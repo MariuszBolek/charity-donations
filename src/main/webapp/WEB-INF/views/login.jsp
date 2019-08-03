@@ -8,12 +8,12 @@
 
 <section class="login-page">
     <h2>Zaloguj się</h2>
-    <form>
+    <form:form method="post" modelAttribute="user">
         <div class="form-group">
-            <input type="email" name="email" placeholder="Email"/>
+            <form:input type="text" placeholder="Email" path="email"/>
         </div>
         <div class="form-group">
-            <input type="password" name="password" placeholder="Hasło"/>
+            <form:input type="password" placeholder="Hasło" path="password"/>
             <a href="#" class="btn btn--small btn--without-border reset-password">Przypomnij hasło</a>
         </div>
 
@@ -21,7 +21,7 @@
             <a href="#" class="btn btn--without-border">Załóż konto</a>
             <button class="btn" type="submit">Zaloguj się</button>
         </div>
-    </form>
+    </form:form>
 
 </section>
 

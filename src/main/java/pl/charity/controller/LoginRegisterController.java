@@ -1,5 +1,6 @@
 package pl.charity.controller;
 
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -9,6 +10,10 @@ import org.springframework.web.bind.annotation.*;
 import pl.charity.entity.Donation;
 import pl.charity.entity.User;
 import pl.charity.service.UserService;
+import pl.charity.validation.UserValidationGroup;
+
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 @Controller
 public class LoginRegisterController {
@@ -26,7 +31,7 @@ public class LoginRegisterController {
     }
 
     @PostMapping(path = "/register")
-    public String saveUser(@ModelAttribute User user, BindingResult result, @RequestParam String password2) {
+    public String saveUser(@ModelAttribute @Validated({UserValidationGroup.class}) User user, BindingResult result, @RequestParam String password2) {
         if (result.hasErrors()) {
 
             return "register";
@@ -35,7 +40,7 @@ public class LoginRegisterController {
         User existingUser = userService.findFirstByEmail(user.getEmail());
 
         if (existingUser != null) {
-            result.addError(new FieldError("user", "email",
+            result.addError(new FieldError("user",  "email",
                     "Podany e-mail jest już zajęty"));
             return "register";
         }
@@ -52,7 +57,8 @@ public class LoginRegisterController {
     }
 
     @GetMapping(path = "login")
-    public String getLogin() {
+    public String getLogin(Model model) {
+//        model.addAttribute("user", new User());
 
         return "login";
     }
@@ -61,8 +67,25 @@ public class LoginRegisterController {
     public String postLogin(Model model) {
         model.addAttribute("error", "Błędne dane");
 
-        return "login";
+//
+//    boolean loggedIn = true;
+//    User existingUser = userService.findFirstByEmail(user.getEmail());
+//        if (existingUser == null) {
+//            loggedIn = false;
+//        } else if (!BCrypt.checkpw(user.getPassword(), existingUser.getPassword())) {
+//            loggedIn = false;
+//        }
+//
+////        if (!loggedIn) {
+//            result.addError(new FieldError("user", "email",
+//                    "Incorrect email or password"));
+//            return "/login";
+//        }
 
+//        session.setAttribute("user", existingUser);
+
+
+        return "redirect:/index";
     }
 
     @PostMapping("/logout")

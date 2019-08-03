@@ -1,12 +1,15 @@
 package pl.charity.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.charity.entity.Category;
+import pl.charity.entity.CurrentUser;
 import pl.charity.entity.Donation;
 import pl.charity.entity.Institution;
 import pl.charity.repository.DonationRepository;
@@ -18,7 +21,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-
+@Secured("ROLE_USER")
 public class DonationController {
 
     private CategoryService categoryService;
@@ -59,7 +62,7 @@ public class DonationController {
 
 
     @RequestMapping(path = "/form-confirmation")
-    public String formConfirm(@ModelAttribute Donation donation, BindingResult confirmBindingResult) {
+    public String formConfirm(@ModelAttribute Donation donation, BindingResult confirmBindingResult, @AuthenticationPrincipal CurrentUser currentUser) {
 
 
         donationService.saveDonation(donation);

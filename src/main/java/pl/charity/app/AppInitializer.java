@@ -4,7 +4,7 @@ import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.DispatcherServlet;
-import pl.charity.fixtures.FundationsFixture;
+import pl.charity.app.AppConfig;
 
 import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
