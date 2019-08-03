@@ -58,7 +58,7 @@ public class LoginRegisterController {
 
     @GetMapping(path = "login")
     public String getLogin(Model model) {
-//        model.addAttribute("user", new User());
+        model.addAttribute("user", new User());
 
         return "login";
     }
