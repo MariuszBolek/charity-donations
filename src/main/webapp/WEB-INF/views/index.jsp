@@ -77,22 +77,25 @@
             Możesz sprawdzić czym się zajmują.</p>
 
         <ul class="help--slides-items">
-
-            <c:forEach var="index" begin="0" end="${institution.size()-1}" varStatus="loop" step="2">
                 <li>
+            <c:forEach items="${institution}" var="institution" varStatus="cnt">
                 <div class="col">
-                    <div class="title"><c:out value="${institution.get(index).name}"/></div>
-                    <div class="subtitle">Cel i Misja; <c:out value="${institution.get(index).description}"/></div>
+                    <div class="title"><c:out value="${institution.name}"/></div>
+                    <div class="subtitle"><c:out value="${institution.description}"/></div>
                 </div>
+                <c:if test="${cnt.count % 2 == 0}">
+                    <c:if test="${cnt.last}">
+                        </li>
+                    </c:if>
+                    <c:if test="${!cnt.last}">
+                        </li><li>
+                    </c:if>
+                </c:if>
+                <c:if test="${cnt.last}">
+                    </li>
+                </c:if>
 
-
-                <div class="col">
-                    <div class="title"><c:out value="${institution.get(index+1).name}"/></div>
-                    <div class="subtitle">Cel i Misja: <c:out value="${institution.get(index+1).description}"/></div>
-                </div>
-                </li>
             </c:forEach>
-
         </ul>
     </div>
 
