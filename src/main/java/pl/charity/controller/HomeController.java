@@ -3,6 +3,7 @@ package pl.charity.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.charity.entity.Institution;
 import pl.charity.repository.DonationRepository;
@@ -16,34 +17,27 @@ import java.util.List;
 import java.util.function.DoubleToLongFunction;
 
 @Controller
-
 public class HomeController {
-
-    private CategoryService categoryService;
-    private DonationService donationService;
     private InstitutionService institutionService;
+    private DonationService donationService;
 
-
-    @Autowired
-
-    public HomeController(CategoryService categoryService, DonationService donationService, InstitutionService institutionService) {
-        this.categoryService = categoryService;
-        this.donationService = donationService;
+    public HomeController(InstitutionService institutionService, DonationService donationService) {
         this.institutionService = institutionService;
+        this.donationService = donationService;
     }
 
-    @RequestMapping(value = {"/", "/index"})
-    public String homePage(Model model, HttpSession session) {
-        Integer total = donationService.sumDonations();
-        model.addAttribute("total", total);
+    @ModelAttribute("institutions")
+    private List<Institution> institutions() {
+        return institutionService.findAll();
+    }
 
-        Integer count = institutionService.countInstitutions();
-        model.addAttribute("count", count);
+    @ModelAttribute("donationsCount")
+    private Long numberOfDonations() {
+        return donationService.numberOfDonations();
+    }
 
-        List<Institution> institutions = institutionService.findAll();
-        model.addAttribute("institution", institutions);
-
-
+    @RequestMapping("/")
+    public String homePage(){
         return "index";
     }
 }

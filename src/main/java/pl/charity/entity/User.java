@@ -1,73 +1,34 @@
 package pl.charity.entity;
-
-import org.springframework.security.core.GrantedAuthority;
-
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "user")
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name = "first_name")
-    @NotBlank
-    private String firstName;
-
-    @Column(name = "last_name")
-    @NotBlank
-    private String lastName;
-
-    @Email
-    @NotBlank
-    @Column(unique = true)
+    private long id;
+    @Column(nullable = false, unique = true)
     private String email;
-
-    @NotBlank
     private String password;
-
-    @OneToMany(mappedBy = "user")
-    private List <Donation> donations = new ArrayList<>();
-
-    private boolean active;
-
+    private String firstName;
+    private String lastName;
+    private boolean enabled;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
+    @OneToMany(mappedBy = "user")
+    private List<Donation> donations = new ArrayList<>();
 
-
-
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -86,20 +47,12 @@ public class User {
         this.password = password;
     }
 
-    public List<Donation> getDonations() {
-        return donations;
+    public boolean isEnabled() {
+        return enabled;
     }
 
-    public void setDonations(List<Donation> donations) {
-        this.donations = donations;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     public Set<Role> getRoles() {
@@ -108,5 +61,29 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public List<Donation> getDonations() {
+        return donations;
+    }
+
+    public void setDonations(List<Donation> donations) {
+        this.donations = donations;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 }

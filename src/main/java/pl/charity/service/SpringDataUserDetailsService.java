@@ -28,7 +28,7 @@ public class SpringDataUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        User user = userService.findFirstByEmail(s);
+        User user = userService.findByUserName(s);
         if (user == null) {
             throw new UsernameNotFoundException(s);
         }
@@ -36,7 +36,6 @@ public class SpringDataUserDetailsService implements UserDetailsService {
         for (Role role : user.getRoles()) {
             grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
         }
-
         return new CurrentUser(user.getEmail(), user.getPassword(), grantedAuthorities, user);
     }
 }

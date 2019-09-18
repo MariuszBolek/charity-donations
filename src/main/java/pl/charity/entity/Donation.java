@@ -1,85 +1,41 @@
 package pl.charity.entity;
 
 import org.springframework.format.annotation.DateTimeFormat;
-import pl.charity.validation.DonationValidationGroup;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-import javax.validation.groups.Default;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "donations")
+@Table(name = "donation")
 public class Donation {
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "quantity")
-    @Min(value = 1, groups = {DonationValidationGroup.class, Default.class}, message = "Minimalna ilość worków to 1")
-    @Max(value = 200, groups = {DonationValidationGroup.class, Default.class}, message = "Maksymalna ilość worków to 200. Jeżeli chcesz ofiarować więcej, skontaktuj się z nami " +
-            "przez formularz kontaktowy u dołu strony")
     private Integer quantity;
-
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinTable(joinColumns = @JoinColumn(name = "donations_id"),
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(joinColumns = @JoinColumn(name = "donation_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
-    @NotEmpty(groups = {DonationValidationGroup.class, Default.class}, message = "Musisz wybrać conajmneij jedną kategorię")
     private List<Category> categories = new ArrayList<>();
-
     @ManyToOne
     private Institution institution;
-
-    @ManyToOne
-    private User user;
-
-    @NotBlank(groups = {DonationValidationGroup.class}, message = "Pole wymagane")
     private String street;
-
-    @NotBlank(groups = {DonationValidationGroup.class}, message = "Pole wymagane")
     private String city;
-
     @Column(name = "zip_code")
-    @NotBlank(groups = {DonationValidationGroup.class}, message = "Pole wymagane")
     private String zipCode;
-
-    @NotBlank(groups = {DonationValidationGroup.class}, message = "Pole wymagane")
-    private String phone;
-
     @Column(name = "pick_up_date")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    @Future(message = "Umów proszę kuriera na przyszłą datę")
     private LocalDate pickUpDate;
-
     @Column(name = "pick_up_time")
     @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
     private LocalTime pickUpTime;
-
-    @Column(name = "comments")
-    @Size(max = 1000, groups = {DonationValidationGroup.class, Default.class})
-    private String comments;
-
-    @Override
-    public String toString() {
-        return "Donation{" +
-                "quantity=" + quantity +
-                ", categories=" + categories +
-                ", institution=" + institution +
-                ", user=" + user +
-                ", street='" + street + '\'' +
-                ", city='" + city + '\'' +
-                ", zipCode='" + zipCode + '\'' +
-                ", phone='" + phone + '\'' +
-                ", pickUpDate=" + pickUpDate +
-                ", pickUpTime=" + pickUpTime +
-                ", comments='" + comments + '\'' +
-                '}';
-    }
+    @Column(name = "pick_up_comment")
+    private String pickUpComment;
+    private String phone;
+    @ManyToOne
+    private User user;
 
     public Long getId() {
         return id;
@@ -137,14 +93,6 @@ public class Donation {
         this.zipCode = zipCode;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
     public LocalDate getPickUpDate() {
         return pickUpDate;
     }
@@ -161,12 +109,20 @@ public class Donation {
         this.pickUpTime = pickUpTime;
     }
 
-    public String getComments() {
-        return comments;
+    public String getPickUpComment() {
+        return pickUpComment;
     }
 
-    public void setComments(String comments) {
-        this.comments = comments;
+    public void setPickUpComment(String pickUpComment) {
+        this.pickUpComment = pickUpComment;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public User getUser() {

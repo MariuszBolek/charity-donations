@@ -1,39 +1,19 @@
 package pl.charity.service;
 
-import org.springframework.stereotype.Service;
-import pl.charity.entity.Category;
-import pl.charity.entity.Donation;
-import pl.charity.entity.Institution;
 
-import java.time.LocalDateTime;
-import java.util.List;
+import pl.charity.entity.CurrentUser;
+import pl.charity.entity.Donation;
+
 
 
 public interface DonationService {
-
-    Donation findFirstById(Long id);
-
-    List<Donation> findByCategories(List<Category> categories);
-
-    List<Donation> findByInstitution(Institution institution);
-
-    List<Donation> findByStreet(String street);
-
-    List<Donation> findByZipCode(String zipcode);
-
-    List<Donation> findByPickUpDate(LocalDateTime pickUpDate);
-
-    Donation saveDonation(Donation donation);
-
-    Donation getNewDonation();
-
-    void deleteById(Long id);
-
-    Integer sumDonations();
-
-
-
-
-
-
+    Long numberOfDonations();
+    Donation save(Donation donation, CurrentUser currentUser);
 }
+
+
+
+
+
+
+

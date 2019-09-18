@@ -2,77 +2,33 @@ package pl.charity.serviceImpl;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
-import pl.charity.entity.Category;
-import pl.charity.entity.Donation;
-import pl.charity.entity.Institution;
+import pl.charity.entity.*;
 import pl.charity.repository.DonationRepository;
 import pl.charity.service.DonationService;
+import pl.charity.service.UserService;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 public class DonationServiceImpl implements DonationService {
+    private DonationRepository donationRepo;
+    private UserService userService;
 
-    private final DonationRepository donationRepository;
-
-    public DonationServiceImpl(DonationRepository donationRepository) {
-        this.donationRepository = donationRepository;
+    public DonationServiceImpl(DonationRepository donationRepo, UserService userService) {
+        this.donationRepo = donationRepo;
+        this.userService = userService;
     }
 
     @Override
-    public Donation findFirstById(Long id) {
-        return donationRepository.findFirstById(id);
+    public Long numberOfDonations() {
+        return donationRepo.sumDonations();
     }
 
     @Override
-    public List<Donation> findByCategories(List<Category> categories) {
-        return donationRepository.findAllByCategories(categories);
+    public Donation save(Donation donation, CurrentUser currentUser) {
+        User user = userService.findById(currentUser.getUser().getId());
+        donation.setUser(user);
+        return donationRepo.save(donation);
     }
-
-    @Override
-    public List<Donation> findByInstitution(Institution institution) {
-        return donationRepository.findAllByInstitution(institution);
-    }
-
-    @Override
-    public List<Donation> findByStreet(String street) {
-        return donationRepository.findAllByStreet(street);
-    }
-
-    @Override
-    public List<Donation> findByZipCode(String zipcode) {
-        return donationRepository.findAllByZipCode(zipcode);
-    }
-
-    @Override
-    public List<Donation> findByPickUpDate(LocalDateTime pickUpDate) {
-        return donationRepository.findAllByPickUpDate(pickUpDate);
-    }
-
-    @Override
-    public Donation saveDonation(Donation donation) {
-        Donation donation1 = donationRepository.save(donation);
-        return donation1;
-    }
-
-    @Override
-    public Donation getNewDonation() {
-        return new Donation();
-    }
-
-    @Override
-    public void deleteById(Long id) {
-        donationRepository.delete(donationRepository.findOne(id));
-    }
-
-    @Override
-    public Integer sumDonations() {
-
-        return donationRepository.sumDonations();
-    }
-
-
-
-
 }

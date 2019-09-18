@@ -1,10 +1,14 @@
 package pl.charity.app;
 
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.core.io.Resource;
+import org.springframework.context.support.ResourceBundleMessageSource;
+
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -13,19 +17,18 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.LocaleContextResolver;
-import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
-import org.springframework.web.servlet.resource.ResourceResolver;
-import org.springframework.web.servlet.resource.ResourceResolverChain;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
+import org.thymeleaf.spring5.SpringTemplateEngine;
+import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
+import org.thymeleaf.spring5.view.ThymeleafViewResolver;
+import org.thymeleaf.templatemode.TemplateMode;
 import pl.charity.converters.CategoryConverter;
 import pl.charity.converters.InstitutionConverter;
 import pl.charity.service.InstitutionService;
 
 import javax.persistence.EntityManagerFactory;
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 import java.util.Locale;
 
 @Import({SecurityConfig.class})
@@ -34,7 +37,14 @@ import java.util.Locale;
 @EnableWebMvc
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "pl.charity")
-public class AppConfig implements WebMvcConfigurer {
+public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
+
+    private ApplicationContext applicationContext;
+
+    public void setApplicationContext(final ApplicationContext applicationContext)
+            throws BeansException {
+        this.applicationContext = applicationContext;
+    }
 
     @Bean
     public LocalEntityManagerFactoryBean entityManagerFactory() {
@@ -44,9 +54,10 @@ public class AppConfig implements WebMvcConfigurer {
     }
 
     @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/**")
-                .addResourceLocations("/resources/");
+    public void addResourceHandlers(final ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/images/**").addResourceLocations("resources/images/");
+        registry.addResourceHandler("/css/**").addResourceLocations("resources/css/");
+        registry.addResourceHandler("/js/**").addResourceLocations("resources/js/");
     }
 
     @Bean
@@ -56,13 +67,41 @@ public class AppConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public ViewResolver viewResolver() {
-        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-        viewResolver.setPrefix("/WEB-INF/views/");
-        viewResolver.setSuffix(".jsp");
+    public SpringResourceTemplateResolver templateResolver(){
+        SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
+        templateResolver.setApplicationContext(this.applicationContext);
+        templateResolver.setPrefix("/WEB-INF/views/");
+        templateResolver.setSuffix(".html");
+        templateResolver.setTemplateMode(TemplateMode.HTML);
+        templateResolver.setCacheable(true);
+        return templateResolver;
+    }
+
+    @Bean
+    public ThymeleafViewResolver viewResolver(){
+        ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
+        viewResolver.setTemplateEngine(templateEngine());
+        viewResolver.setCharacterEncoding("UTF-8");
         return viewResolver;
     }
 
+    @Bean
+    public SpringTemplateEngine templateEngine(){
+        SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+        templateEngine.setTemplateResolver(templateResolver());
+        templateEngine.setTemplateEngineMessageSource(messageSource());
+        templateEngine.setEnableSpringELCompiler(true);
+        templateEngine.setRenderHiddenMarkersBeforeCheckboxes(true);
+        templateEngine.addDialect(new SpringSecurityDialect());
+        return templateEngine;
+    }
+
+    @Bean
+    public ResourceBundleMessageSource messageSource() {
+        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+        messageSource.setBasename("Messages");
+        return messageSource;
+    }
 
 
 
@@ -73,11 +112,6 @@ public class AppConfig implements WebMvcConfigurer {
         return localeResolver;
     }
 
-
-    @Bean
-    PasswordEncoder getEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 
     @Override
     public void addFormatters(FormatterRegistry registry) {

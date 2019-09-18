@@ -24,68 +24,15 @@ public class LoginRegisterController {
         this.userService = userService;
     }
 
-    @GetMapping(path = "/register")
-    public String showRegisterForm(Model model) {
-        model.addAttribute("user", new User());
-        return "register";
-    }
-
-    @PostMapping(path = "/register")
-    public String saveUser(@ModelAttribute @Validated({UserValidationGroup.class}) User user, BindingResult result, @RequestParam String password2) {
-        if (result.hasErrors()) {
-
-            return "register";
-        }
-
-        User existingUser = userService.findFirstByEmail(user.getEmail());
-
-        if (existingUser != null) {
-            result.addError(new FieldError("user",  "email",
-                    "Podany e-mail jest już zajęty"));
-            return "register";
-        }
-
-        if (!user.getPassword().equals(password2)) {
-            result.addError(new FieldError("user", "password",
-                    "Hasła różnią się od siebie"));
-            return "register";
-        }
-
-        userService.saveUser(user);
-
-        return "redirect:/login";
-    }
-
-    @GetMapping(path = "login")
-    public String getLogin(Model model) {
-        model.addAttribute("user", new User());
-
+    @GetMapping("/login")
+    public String showLoginForm() {
         return "login";
     }
 
-    @PostMapping(path = "/login")
-    public String postLogin(Model model) {
-        model.addAttribute("error", "Błędne dane");
-
-//
-//    boolean loggedIn = true;
-//    User existingUser = userService.findFirstByEmail(user.getEmail());
-//        if (existingUser == null) {
-//            loggedIn = false;
-//        } else if (!BCrypt.checkpw(user.getPassword(), existingUser.getPassword())) {
-//            loggedIn = false;
-//        }
-//
-////        if (!loggedIn) {
-//            result.addError(new FieldError("user", "email",
-//                    "Incorrect email or password"));
-//            return "/login";
-//        }
-
-//        session.setAttribute("user", existingUser);
-
-
-        return "redirect:/index";
+    @PostMapping("/login")
+    public String showLoginFormFail(Model model) {
+        model.addAttribute("error", "error");
+        return "login";
     }
 
     @PostMapping("/logout")
@@ -98,6 +45,33 @@ public class LoginRegisterController {
         return "403";
     }
 
+    @GetMapping("/register")
+    public String showRegistrationForm(Model model) {
+        model.addAttribute("user", new User());
+        return "register";
+    }
 
+    @PostMapping("/register")
+    public String saveRegistrationForm(@ModelAttribute User user, @RequestParam String password2) {
+//        if (result.hasErrors()) {
+//            return "register";
+//        }
 
+//        User existingUser = userService.findByUserName(user.getEmail());
+//        if (existingUser != null) {
+//            result.addError(new FieldError("user", "email", "Email jest już zajęty"));
+//            return "register";
+//        }
+
+//        if (!user.getPassword().equals(password2)) {
+//            result.addError(new FieldError("user", "password", "Podane hasła nie są jednakowe"));
+//            return "register";
+//        }
+
+        userService.saveUser(user);
+        return "redirect:login";
+    }
 }
+
+
+

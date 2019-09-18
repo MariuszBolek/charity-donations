@@ -1,20 +1,15 @@
 package pl.charity.entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+
 
 @Entity
 @Table(name = "category")
 public class Category {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "name")
-    @NotBlank
     private String name;
-
 
     public Long getId() {
         return id;
@@ -32,5 +27,11 @@ public class Category {
         this.name = name;
     }
 
-
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

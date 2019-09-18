@@ -7,19 +7,13 @@ import java.util.List;
 
 public interface UserService {
 
-    User findFirstById(Long id);
-
-    User findFirstByEmail(String email);
-
-    List<User> findAllByFirstName(String firstName);
-
-    List<User> findAllByLastName(String lastName);
+    User findByUserName(String name);
 
     void saveUser(User user);
 
-    void editUser(User user, Long id);
+    void saveEditUser(User user, Long id);
 
-    void changepassword(Long userId, String prevPassword, String newPassword, String confirmNewPassword);
+    User findById(Long id);
 
-    void deleteById(Long id);
+    void changePassword(Long userId, String oldPassword, String newPassword, String confirmPassword);
 }

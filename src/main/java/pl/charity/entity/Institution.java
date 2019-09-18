@@ -1,7 +1,9 @@
 package pl.charity.entity;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.*;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -41,5 +43,14 @@ public class Institution {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "Institution{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

@@ -23,63 +23,43 @@ import java.util.List;
 @Controller
 @Secured("ROLE_USER")
 public class DonationController {
-
+    private InstitutionService institutionService;
     private CategoryService categoryService;
     private DonationService donationService;
-    private InstitutionService institutionService;
 
-
-    @Autowired
-    public DonationController(CategoryService categoryService,
-                              DonationService donationService,
-                              InstitutionService institutionService) {
+    public DonationController(InstitutionService institutionService, CategoryService categoryService
+            , DonationService donationService) {
+        this.institutionService = institutionService;
         this.categoryService = categoryService;
         this.donationService = donationService;
-        this.institutionService = institutionService;
-
     }
 
     @ModelAttribute("institutions")
-    public List<Institution> getInstitutions() {
+    public List<Institution> institutions() {
         return institutionService.findAll();
     }
 
     @ModelAttribute("categories")
-    public List<Category> category() {
+    public List<Category> categories() {
         return categoryService.findAll();
     }
 
-    @ModelAttribute
-    public Donation newDonation() {
-        return donationService.getNewDonation();
-    }
-
-    @GetMapping(path = "/form")
+    @GetMapping("/donate")
     public String donate(Model model) {
-
-        return "/form";
+        model.addAttribute("donation", new Donation());
+        return "form";
     }
 
+    @PostMapping("/donate")
+    public String confirm(@ModelAttribute Donation donation, @AuthenticationPrincipal CurrentUser currentUser) {
 
-    @RequestMapping(path = "/form-confirmation")
-    public String formConfirm(@ModelAttribute Donation donation, BindingResult confirmBindingResult, @AuthenticationPrincipal CurrentUser currentUser) {
-
-
-        donationService.saveDonation(donation);
-
-        if(confirmBindingResult.hasErrors()) {
-            return "/form";
-        }
-
-
-        System.out.println(donation);
+        donationService.save(donation, currentUser);
         return "form-confirmation";
     }
-
-
-
-
-
-
-
 }
+
+
+
+
+
+

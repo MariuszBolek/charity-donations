@@ -15,73 +15,54 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
-
-    private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
+    private final UserRepository userRepo;
+    private final RoleRepository roleRepo;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
+    public UserServiceImpl(UserRepository userRepo, RoleRepository roleRepo, PasswordEncoder passwordEncoder) {
+        this.userRepo = userRepo;
+        this.roleRepo = roleRepo;
         this.passwordEncoder = passwordEncoder;
     }
 
-
     @Override
-    public User findFirstById(Long id) {
-        return null;
-    }
-
-    @Override
-    public User findFirstByEmail(String email) {
-        return null;
-    }
-
-    @Override
-    public List<User> findAllByFirstName(String firstName) {
-        return null;
-    }
-
-    @Override
-    public List<User> findAllByLastName(String lastName) {
-        return null;
+    public User findByUserName(String name) {
+        return userRepo.findFirstByEmail(name);
     }
 
     @Override
     public void saveUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setActive(true);
-        Role userRole = roleRepository.findByName("ROLE_USER");
+        user.setEnabled(true);
+        Role userRole = roleRepo.findByName("ROLE_USER");
         user.setRoles(new HashSet<>(Arrays.asList(userRole)));
-        userRepository.save(user);
+        userRepo.save(user);
     }
 
     @Override
-    public void editUser(User user, Long id) {
-            User userFromDB = userRepository.findFirstById(id);
-            userFromDB.setFirstName(user.getFirstName());
-            userFromDB.setLastName(user.getLastName());
-            userRepository.save(user);
+    public void saveEditUser(User user, Long id) {
+        User dbUser = userRepo.findFirstById(id);
+        dbUser.setFirstName(user.getFirstName());
+        dbUser.setLastName(user.getLastName());
+        userRepo.save(dbUser);
     }
 
     @Override
-    public void changepassword(Long userId, String prevPassword, String newPassword, String confirmNewPassword) {
+    public User findById(Long id) {
+        return userRepo.findFirstById(id);
+    }
 
-        User user = userRepository.findFirstById(userId);
-
-        if (!passwordEncoder.matches(prevPassword, user.getPassword())) {
+    @Override
+    public void changePassword(Long userId, String oldPassword, String newPassword, String confirmPassword) throws IllegalArgumentException {
+        User user = userRepo.findFirstById(userId);
+        if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
             throw new IllegalArgumentException();
         }
-        if (!newPassword.equals(confirmNewPassword) || newPassword.length() < 6) {
+        if (!newPassword.equals(confirmPassword) || newPassword.length() < 6) {
             throw new IllegalArgumentException();
         }
         user.setPassword(passwordEncoder.encode(newPassword));
-        userRepository.save(user);
-    }
-
-    @Override
-    public void deleteById(Long id) {
-
+        userRepo.save(user);
     }
 }

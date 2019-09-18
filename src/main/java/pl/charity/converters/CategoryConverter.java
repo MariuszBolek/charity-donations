@@ -8,8 +8,9 @@ import pl.charity.service.CategoryService;
 
 
 public class CategoryConverter implements Converter<String, Category> {
+
     @Autowired
-    CategoryService categoryService;
+    private CategoryService categoryService;
 
 
 //    public CategoryConverter(CategoryService categoryService) {

@@ -16,20 +16,8 @@ import java.util.List;
 @Repository
 public interface DonationRepository extends JpaRepository<Donation, Long> {
 
-    Donation findFirstById(Long id);
-
-    List<Donation> findAllByCategories(List<Category> categories);
-
-    List<Donation> findAllByInstitution(Institution institution);
-
-    List<Donation> findAllByStreet(String street);
-
-    List<Donation> findAllByZipCode(String zipcode);
-
-    List<Donation> findAllByPickUpDate(LocalDateTime pickUpDate);
-
-    @Query(value = "select sum(quantity) from donations", nativeQuery = true)
-    Integer sumDonations();
+    @Query("SELECT SUM (d.quantity) FROM Donation d")
+    Long sumDonations();
 
 
 
