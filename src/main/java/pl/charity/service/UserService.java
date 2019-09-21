@@ -11,9 +11,9 @@ public interface UserService {
 
     void saveUser(User user);
 
-    void saveEditUser(User user, Long id);
+    void saveEditUser(User user, String userName);
 
     User findById(Long id);
 
-    void changePassword(Long userId, String oldPassword, String newPassword, String confirmPassword);
+    void changePassword(String userName, String oldPassword, String newPassword, String confirmPassword);
 }

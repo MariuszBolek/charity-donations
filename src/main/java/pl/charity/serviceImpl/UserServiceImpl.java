@@ -41,8 +41,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveEditUser(User user, Long id) {
-        User dbUser = userRepo.findFirstById(id);
+    public void saveEditUser(User user, String userName) {
+        User dbUser = userRepo.findFirstByEmail(userName);
+   //     dbUser.setEmail(user.getEmail());
         dbUser.setFirstName(user.getFirstName());
         dbUser.setLastName(user.getLastName());
         userRepo.save(dbUser);
@@ -54,8 +55,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void changePassword(Long userId, String oldPassword, String newPassword, String confirmPassword) throws IllegalArgumentException {
-        User user = userRepo.findFirstById(userId);
+    public void changePassword(String userName, String oldPassword, String newPassword, String confirmPassword) throws IllegalArgumentException {
+        User user = userRepo.findFirstByEmail(userName);
         if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
             throw new IllegalArgumentException();
         }

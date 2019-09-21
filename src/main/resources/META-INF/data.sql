@@ -15,3 +15,12 @@ INSERT INTO `charity-donation`.`category` (`name`) VALUES ('Inne');
 INSERT INTO role(role_id, role)
 VALUES (1, 'ROLE_USER'),
        (2, 'ROLE_ADMIN');
+
+INSERT INTO user(id, email, password, enabled)
+VALUES (1, 'example@user', '$2a$10$WEtFNRNvy6n/p4vcA2u8K.qfhGRfKVZqQcbxMGoiDbEzhWblcKoQy', 1),
+       (2, 'example@admin', '$2a$10$WEtFNRNvy6n/p4vcA2u8K.qfhGRfKVZqQcbxMGoiDbEzhWblcKoQy', 1);
+
+INSERT INTO user_role(user_id, role_id)
+VALUES (1, 1),
+       (2, 1),
+       (2, 2);
