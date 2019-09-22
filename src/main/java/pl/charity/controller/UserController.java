@@ -1,5 +1,6 @@
 package pl.charity.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import pl.charity.service.UserService;
 import java.security.Principal;
 
 @RequestMapping("/user")
+//@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
 @Controller
 public class UserController {
     private UserService userService;
@@ -43,16 +45,16 @@ public class UserController {
         return "redirect:/user/profile";
     }
 
-//    @GetMapping("/edit")
-//    public String editPasssword(Model model, Principal principal) {
-//        model.addAttribute("user", userService.findByUserName(principal.getName()));
-//        return "user/edit";
-//    }
-//
-//    @PostMapping("/edit")
-//    public String saveEditPassword(User user, Principal principal) {
-//
-//        return "redirect:/user/profile";
-//    }
+    @GetMapping("/password-change")
+    public String editPasssword(Model model, Principal principal) {
+        model.addAttribute("user", userService.findByUserName(principal.getName()));
+        return "user/edit";
+    }
+
+    @PostMapping("/password-change")
+    public String saveEditPassword(User user, Principal principal) {
+
+        return "redirect:/user/profile";
+    }
 
 }
