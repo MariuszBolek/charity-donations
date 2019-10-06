@@ -1,16 +1,16 @@
 package pl.charity.controller;
 
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import pl.charity.entity.CurrentUser;
 import pl.charity.entity.User;
 import pl.charity.service.UserService;
 
 import java.security.Principal;
+import java.util.Locale;
 
 @RequestMapping("/user")
 //@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
@@ -45,14 +45,26 @@ public class UserController {
         return "redirect:/user/profile";
     }
 
-    @GetMapping("/password-change")
+    @GetMapping("/editpassword")
     public String editPasssword(Model model, Principal principal) {
         model.addAttribute("user", userService.findByUserName(principal.getName()));
-        return "user/edit";
+
+        return "user/password-change";
     }
 
-    @PostMapping("/password-change")
-    public String saveEditPassword(User user, Principal principal) {
+    @PostMapping("/editpassword")
+    public String saveEditPassword(@AuthenticationPrincipal CurrentUser currentUser,
+                                   @RequestParam String oldPassword,
+                                   @RequestParam String newPassword,
+                                   @RequestParam String newPasswordConfirm,
+                                   Model model) {
+
+        try {
+            userService.changePassword(currentUser.getUser().getEmail(), oldPassword, newPassword, newPasswordConfirm);
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("error", "error");
+            return "user/password-change";
+        }
 
         return "redirect:/user/profile";
     }

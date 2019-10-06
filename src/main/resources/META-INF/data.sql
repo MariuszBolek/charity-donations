@@ -1,5 +1,13 @@
 CREATE SCHEMA `charity-donation` DEFAULT CHARACTER SET utf8 COLLATE utf8_polish_ci ;
 
+CREATE TABLE `new_schema`.`new_table` (
+  `n` INT NOT NULL AUTO_INCREMENT,
+  `er` VARCHAR(45) NULL,
+  `re` BLOB NOT NULL,
+  PRIMARY KEY (`n`),
+  UNIQUE INDEX `er_UNIQUE` (`er` ASC),
+  UNIQUE INDEX `re_UNIQUE` (`re` ASC));
+
 INSERT INTO `charity-donation`.`institution` (`description`, `name`) VALUES ('Pomoc dzieciom z ubogich rodzin', 'Fundacja \'Szary Miś\'');
 INSERT INTO `charity-donation`.`institution` (`description`, `name`) VALUES ('Pomoc osobom bezdomnym', 'Fundacja \'Bez Domu\'');
 INSERT INTO `charity-donation`.`institution` (`description`, `name`) VALUES ('Poszukiwanie osób zaginionych', 'Fundacja \'A Kogo\'');
