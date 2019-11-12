@@ -32,11 +32,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> findAll() {
+        return userRepo.findAll();
+    }
+
+    @Override
     public void saveUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setEnabled(true);
         Role userRole = roleRepo.findByName("ROLE_USER");
         user.setRoles(new HashSet<>(Arrays.asList(userRole)));
+        userRepo.save(user);
+    }
+
+    @Override
+    public void saveEditUser(User user) {
         userRepo.save(user);
     }
 
@@ -47,6 +57,11 @@ public class UserServiceImpl implements UserService {
         dbUser.setFirstName(user.getFirstName());
         dbUser.setLastName(user.getLastName());
         userRepo.save(dbUser);
+    }
+
+    @Override
+    public void delete(Long id) {
+        userRepo.delete(userRepo.findFirstById(id));
     }
 
     @Override
