@@ -24,6 +24,7 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
+import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import pl.charity.converters.CategoryConverter;
 import pl.charity.converters.InstitutionConverter;
 import pl.charity.service.InstitutionService;
@@ -74,6 +75,7 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
         templateResolver.setSuffix(".html");
         templateResolver.setTemplateMode(TemplateMode.HTML);
         templateResolver.setCacheable(true);
+        templateResolver.setCharacterEncoding("UTF-8");
         return templateResolver;
     }
 
@@ -82,6 +84,7 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
         ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
         viewResolver.setTemplateEngine(templateEngine());
         viewResolver.setCharacterEncoding("UTF-8");
+        viewResolver.setContentType("text/html;charset=UTF-8");
         return viewResolver;
     }
 
@@ -102,6 +105,7 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
         messageSource.setBasename("Messages");
         return messageSource;
     }
+
 
 
 

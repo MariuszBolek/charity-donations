@@ -167,6 +167,7 @@ document.addEventListener("DOMContentLoaded", function() {
       // TODO: get data from inputs and show them in summary
     }
 
+
     summary() {
 
       document.getElementById("street").addEventListener("input", function() {
@@ -192,10 +193,10 @@ document.addEventListener("DOMContentLoaded", function() {
       });
     }
 
-
   }
   const form = document.querySelector(".form--steps");
   if (form !== null) {
     new FormSteps(form);
   }
+
 });

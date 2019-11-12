@@ -8,6 +8,7 @@
     <artifactId>charity</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+
     <packaging>war</packaging>
 
     <properties>
@@ -15,6 +16,9 @@
         <failOnMissingWebXml>false</failOnMissingWebXml>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <encoding>UTF-8</encoding>
+        <property name="contentType" value="text/html;charset=UTF-8"/>
+
     </properties>
 
     <dependencies>
