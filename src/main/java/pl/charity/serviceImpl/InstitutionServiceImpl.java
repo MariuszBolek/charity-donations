@@ -25,4 +25,17 @@ public class InstitutionServiceImpl implements InstitutionService {
     public Institution findById(Long id) {
         return institutionRepo.findFirstById(id);
     }
+
+    @Override
+    public void delete(Long id) {
+        institutionRepo.delete(institutionRepo.findFirstById(id));
+    }
+
+    @Override
+    public void edit(Long id, Institution institution) {
+        Institution institutionFromDB = institutionRepo.findFirstById(id);
+        institutionFromDB.setName(institution.getName());
+        institutionFromDB.setDescription(institution.getDescription());
+        institutionRepo.save(institutionFromDB);
+    }
 }

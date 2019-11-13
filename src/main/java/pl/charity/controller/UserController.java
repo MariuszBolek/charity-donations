@@ -1,5 +1,6 @@
 package pl.charity.controller;
 
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -13,7 +14,8 @@ import java.security.Principal;
 import java.util.Locale;
 
 @RequestMapping("/user")
-//@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+@Secured("ROLE_USER")
+
 @Controller
 public class UserController {
     private UserService userService;

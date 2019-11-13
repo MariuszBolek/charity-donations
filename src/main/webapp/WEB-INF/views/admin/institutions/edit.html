@@ -12,19 +12,17 @@
 </header>
 
 <section class="login-page">
-    <h2>Zmiana hasła</h2>
-    <form action="#" th:action="@{/user/editpassword}"  method="post">
-<!--        <div th:if="${error}" class="form-group error">Niepoprawne dane</div>-->
+    <h2>Zmiana danych</h2>
+    <form action="#" th:action="@{/admin/institutions/edit}" th:object="${institution}" method="post">
+        <!--        <div class="form-group">-->
+        <!--            <input type="email" th:field="*{email}" placeholder="Email"/>-->
+        <!--        </div>-->
         <div class="form-group">
-            <input type="password"  id="oldPassword" name="oldPassword" placeholder="Stare hasło"/>
+            <input type="text" th:field="*{name}" id="name" name="name" placeholder="Nazwa"/>
         </div>
         <div class="form-group">
-            <input type="password"  id="newPassword" name="newPassword" placeholder="Nowe hasło"/>
+            <input type="text" th:field="*{description}" id="description" name="description" placeholder="Opis"/>
         </div>
-        <div class="form-group">
-            <input type="password" name="newPasswordConfirm" placeholder="Powtórz hasło"/>
-        </div>
-
         <div class="form-group form-group--buttons">
             <button class="btn" type="submit">Zapisz</button>
         </div>

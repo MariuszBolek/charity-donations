@@ -1,6 +1,9 @@
 package pl.charity.controller;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,8 +15,13 @@ import pl.charity.entity.User;
 import pl.charity.service.UserService;
 import pl.charity.validation.UserValidationGroup;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.IOException;
+import java.util.Set;
 
 @Controller
 public class LoginRegisterController {
@@ -23,6 +31,8 @@ public class LoginRegisterController {
     public LoginRegisterController(UserService userService) {
         this.userService = userService;
     }
+
+
 
     @GetMapping("/login")
     public String showLoginForm() {
