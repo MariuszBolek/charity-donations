@@ -156,7 +156,7 @@ document.addEventListener("DOMContentLoaded", function() {
       this.slides.forEach(slide => {
         slide.classList.remove("active");
 
-        if (slide.dataset.step == this.currentStep) {
+        if (slide.dataset.step === this.currentStep) {
           slide.classList.add("active");
         }
       });
@@ -165,7 +165,10 @@ document.addEventListener("DOMContentLoaded", function() {
       this.$step.parentElement.hidden = this.currentStep >= 5;
 
       // TODO: get data from inputs and show them in summary
-    }
+
+  }
+
+
 
 
     summary() {
@@ -188,15 +191,12 @@ document.addEventListener("DOMContentLoaded", function() {
       document.getElementById("pickUpTime").addEventListener("input", function() {
         document.getElementById("timeSum").innerText = this.value;
       });
-      document.getElementById("comments").addEventListener("input", function() {
+      document.getElementById("pickUpComment").addEventListener("input", function() {
         document.getElementById("commentsSum").innerText = this.value;
       });
     }
 
   }
-  const form = document.querySelector(".form--steps");
-  if (form !== null) {
-    new FormSteps(form);
-  }
+
 
 });

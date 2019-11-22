@@ -1,5 +1,6 @@
 package pl.charity.serviceImpl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import pl.charity.entity.*;
@@ -15,6 +16,7 @@ public class DonationServiceImpl implements DonationService {
     private DonationRepository donationRepo;
     private UserService userService;
 
+    @Autowired
     public DonationServiceImpl(DonationRepository donationRepo, UserService userService) {
         this.donationRepo = donationRepo;
         this.userService = userService;

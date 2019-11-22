@@ -1,6 +1,7 @@
 package pl.charity.entity;
 
 import org.hibernate.validator.constraints.NotBlank;
+import pl.charity.validation.InstitutionValidationGroup;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -15,10 +16,11 @@ public class Institution {
     private Long id;
 
     @Column(name = "name")
-    @NotBlank
+    @NotBlank(groups = InstitutionValidationGroup.class, message = "pole nie może być puste")
     private String name;
 
     @Size(max = 300)
+    @NotBlank(groups = InstitutionValidationGroup.class, message = "pole nie może być puste")
     private String description;
 
     public Long getId() {
