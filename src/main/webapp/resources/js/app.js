@@ -168,31 +168,28 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     summary() {
-
       document.getElementById("street").addEventListener("input", function() {
-        document.getElementById("streetSum").innerText = this.value;
+        document.getElementById("sum-street").innerText = this.value;
       });
       document.getElementById("city").addEventListener("input", function() {
-        document.getElementById("citySum").innerText = this.value;
+        document.getElementById("sum-city").innerText = this.value;
       });
       document.getElementById("zipCode").addEventListener("input", function() {
-        document.getElementById("zipSum").innerText = this.value;
+        document.getElementById("sum-zip").innerText = this.value;
       });
       document.getElementById("phone").addEventListener("input", function() {
-        document.getElementById("phoneSum").innerText = this.value;
+        document.getElementById("sum-phone").innerText = this.value;
       });
       document.getElementById("pickUpDate").addEventListener("input", function() {
-        document.getElementById("dateSum").innerText = this.value;
+        document.getElementById("sum-date").innerText = this.value;
       });
       document.getElementById("pickUpTime").addEventListener("input", function() {
-        document.getElementById("timeSum").innerText = this.value;
+        document.getElementById("sum-time").innerText = this.value;
       });
-      document.getElementById("comments").addEventListener("input", function() {
-        document.getElementById("commentsSum").innerText = this.value;
+      document.getElementById("pickUpComment").addEventListener("input", function() {
+        document.getElementById("sum-comment").innerText = this.value;
       });
     }
-
-
   }
   const form = document.querySelector(".form--steps");
   if (form !== null) {
