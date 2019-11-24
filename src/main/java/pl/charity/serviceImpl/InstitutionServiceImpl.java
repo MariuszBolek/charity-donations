@@ -12,6 +12,7 @@ import java.util.List;
 public class InstitutionServiceImpl implements InstitutionService {
     private InstitutionRepository institutionRepo;
 
+    @Autowired
     public InstitutionServiceImpl(InstitutionRepository institutionRepo) {
         this.institutionRepo = institutionRepo;
     }

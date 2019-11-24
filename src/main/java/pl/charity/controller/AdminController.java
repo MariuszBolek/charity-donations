@@ -96,7 +96,7 @@ public class AdminController {
     }
 
     @PostMapping("/institutions/edit")
-    public String saveEditInstitution( Long id, @Valid Institution institution, BindingResult bindingResult) {
+    public String saveEditInstitution(@RequestParam Long id, @Valid Institution institution, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "redirect:/admin/institutions/manage";
         }

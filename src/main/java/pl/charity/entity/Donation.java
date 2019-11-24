@@ -11,6 +11,10 @@ import java.util.List;
 @Entity
 @Table(name = "donation")
 public class Donation {
+
+    private static final String NOT_BLANK_MESSAGE = "Pole nie może być puste";
+    private static final String PATTERN_NOT_MATCH_MESSAGE = "Niepoprawny format";
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
