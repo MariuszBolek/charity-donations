@@ -168,6 +168,9 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     summary() {
+      document.getElementById("category").addEventListener("input", function() {
+        document.getElementById("sum-category").innerText = this.value;
+      });
       document.getElementById("street").addEventListener("input", function() {
         document.getElementById("sum-street").innerText = this.value;
       });

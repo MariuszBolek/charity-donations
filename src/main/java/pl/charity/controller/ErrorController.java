@@ -27,7 +27,7 @@ public class ErrorController {
 
 
     @ExceptionHandler(value = { IllegalArgumentException.class, IllegalStateException.class, SQLIntegrityConstraintViolationException.class, ConstraintViolationException.class,
-            PersistenceException.class, JpaSystemException.class, NestedServletException.class, NoResultException.class})
+            PersistenceException.class, JpaSystemException.class, NestedServletException.class, NoResultException.class, NoHandlerFoundException.class})
 
     public String handleException(HttpServletRequest request, Exception e) {
 
@@ -35,12 +35,22 @@ public class ErrorController {
 
     }
 
-    @ExceptionHandler(ResourceNotFoundException.class)
+//    @ExceptionHandler(ResourceNotFoundException.class)
+//
+//    public String handleError404(HttpServletRequest request, Exception e) {
+//
+//        return "redirect:/error";
+//    }
 
-    public String handleError404(HttpServletRequest request, Exception e) {
-
-        return "redirect:/error";
-    }
+//    @ExceptionHandler(NoHandlerFoundException.class)
+//    public ModelAndView handle(Exception ex) {
+//
+//        ModelAndView mv = new ModelAndView();
+//        mv.addObject("message", ex.getMessage());
+//        mv.setViewName("error");
+//
+//        return mv;
+//    }
 
 
 
