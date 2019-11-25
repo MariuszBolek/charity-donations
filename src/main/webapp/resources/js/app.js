@@ -168,9 +168,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     summary() {
-      document.getElementById("category").addEventListener("input", function() {
-        document.getElementById("sum-category").innerText = this.value;
-      });
       document.getElementById("street").addEventListener("input", function() {
         document.getElementById("sum-street").innerText = this.value;
       });
@@ -192,7 +189,14 @@ document.addEventListener("DOMContentLoaded", function() {
       document.getElementById("pickUpComment").addEventListener("input", function() {
         document.getElementById("sum-comment").innerText = this.value;
       });
+
+
+
     }
+
+
+
+
   }
   const form = document.querySelector(".form--steps");
   if (form !== null) {

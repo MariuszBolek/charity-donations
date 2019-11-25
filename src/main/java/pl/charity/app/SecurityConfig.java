@@ -52,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().formLogin().loginPage("/login").failureForwardUrl("/login")
                 .permitAll()
                 .and().logout().logoutSuccessUrl("/").permitAll()
-                .and().exceptionHandling().accessDeniedPage("/403");
+                .and().exceptionHandling().accessDeniedPage("/errors/403");
 
     }
 

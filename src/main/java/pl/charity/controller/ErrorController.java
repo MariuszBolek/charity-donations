@@ -27,12 +27,18 @@ public class ErrorController {
 
 
     @ExceptionHandler(value = { IllegalArgumentException.class, IllegalStateException.class, SQLIntegrityConstraintViolationException.class, ConstraintViolationException.class,
-            PersistenceException.class, JpaSystemException.class, NestedServletException.class, NoResultException.class, NoHandlerFoundException.class})
+            PersistenceException.class, JpaSystemException.class, NestedServletException.class})
 
-    public String handleException(HttpServletRequest request, Exception e) {
+    public String handle500Exception(HttpServletRequest request, Exception e) {
 
-        return "error";
+        return "errors/500";
 
+    }
+
+    @ExceptionHandler(value = {NoResultException.class, NoHandlerFoundException.class} )
+    public String handle404Exception(HttpServletRequest request, Exception e) {
+
+        return "errors/404";
     }
 
 //    @ExceptionHandler(ResourceNotFoundException.class)
