@@ -4,10 +4,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import pl.charity.entity.Institution;
 import pl.charity.entity.User;
 import pl.charity.service.CategoryService;
@@ -96,7 +93,7 @@ public class AdminController {
     }
 
     @PostMapping("/institutions/edit")
-    public String saveEditInstitution(@RequestParam Long id, @Valid Institution institution, BindingResult bindingResult) {
+    public String saveEditInstitution(@ModelAttribute Long id, @Valid Institution institution, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "redirect:/admin/institutions/manage";
         }

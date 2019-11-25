@@ -62,21 +62,21 @@ public class LoginRegisterController {
     }
 
     @PostMapping("/register")
-    public String saveRegistrationForm(@ModelAttribute User user, @RequestParam String password2) {
-//        if (result.hasErrors()) {
-//            return "register";
-//        }
+    public String saveRegistrationForm(@Validated(UserValidationGroup.class) User user, BindingResult result, @RequestParam String password2) {
+        if (result.hasErrors()) {
+            return "register";
+        }
 
-//        User existingUser = userService.findByUserName(user.getEmail());
-//        if (existingUser != null) {
-//            result.addError(new FieldError("user", "email", "Email jest już zajęty"));
-//            return "register";
-//        }
+        User existingUser = userService.findByUserName(user.getEmail());
+        if (existingUser != null) {
+            result.addError(new FieldError("user", "email", "Email jest już zajęty"));
+            return "register";
+        }
 
-//        if (!user.getPassword().equals(password2)) {
-//            result.addError(new FieldError("user", "password", "Podane hasła nie są jednakowe"));
-//            return "register";
-//        }
+        if (!user.getPassword().equals(password2)) {
+            result.addError(new FieldError("user", "password", "Podane hasła nie są jednakowe"));
+            return "register";
+        }
 
         userService.saveUser(user);
         return "redirect:login";
