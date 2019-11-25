@@ -93,12 +93,12 @@ public class AdminController {
     }
 
     @PostMapping("/institutions/edit")
-    public String saveEditInstitution(@ModelAttribute Long id, @Valid Institution institution, BindingResult bindingResult) {
+    public String saveEditInstitution(@ModelAttribute(value = "institution") Institution institution, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "redirect:/admin/institutions/manage";
         }
 
-        institutionService.edit(id, institution);
+        institutionService.edit(institution.getId(), institution);
 
         return "redirect:/admin/institutions/manage";
     }

@@ -27,7 +27,7 @@ public class ErrorController {
 
 
     @ExceptionHandler(value = { IllegalArgumentException.class, IllegalStateException.class, SQLIntegrityConstraintViolationException.class, ConstraintViolationException.class,
-            PersistenceException.class, JpaSystemException.class, NestedServletException.class})
+            PersistenceException.class, JpaSystemException.class, NestedServletException.class, NullPointerException.class})
 
     public String handle500Exception(HttpServletRequest request, Exception e) {
 
