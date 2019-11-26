@@ -9,7 +9,7 @@
             <ul class="dropdown">
                 <li><a th:href="@{/user/profile}">Profil</a></li>
                 <li sec:authorize="hasRole('ADMIN')"><a th:href="@{/admin}">Panel Administracyjny</a></li>
-                <li><a href="#">Moje zbiórki</a></li>
+                <li><a th:href="@{/user/my-donations}">Moje zbiórki</a></li>
                 <li>
                     <form style="display: inline" th:action="@{/logout}" method="post">
                         <a href="#" onclick="this.parentNode.submit();">Wyloguj</a>

@@ -21,6 +21,8 @@
             <li style="font-size: large" sec:authorize="isAuthenticated()">Imię: <span th:text="${user.firstName}"</span></li>
             <li style="font-size: large" sec:authorize="isAuthenticated()">Nazwisko: <span th:text="${user.lastName}"></span></li>
         </ul>
+
+      
         <a style="font-size: large" class="btn btn--without-border" th:href="@{/user/edit}">Edycja danych</a>
         <a style="font-size: large" class="btn btn--without-border" th:href="@{/user/editpassword}">Zmiana hasła</a>
     </div>

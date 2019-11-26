@@ -5,12 +5,18 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.charity.entity.CurrentUser;
+import pl.charity.entity.Donation;
 import pl.charity.entity.User;
+import pl.charity.service.DonationService;
 import pl.charity.service.UserService;
+import pl.charity.validation.UserValidationGroup;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Locale;
 
 @RequestMapping("/user")
@@ -19,9 +25,16 @@ import java.util.Locale;
 @Controller
 public class UserController {
     private UserService userService;
+    private DonationService donationService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, DonationService donationService) {
         this.userService = userService;
+        this.donationService = donationService;
+    }
+
+    @ModelAttribute("donations")
+    public List<Donation> getdonations(@AuthenticationPrincipal CurrentUser currentUser) {
+        return donationService.findAllUserDonations(currentUser.getUser().getId());
     }
 
     @GetMapping("/profile")
@@ -35,6 +48,18 @@ public class UserController {
         return "user/profile";
     }
 
+
+    @GetMapping("/my-donations")
+    public String showDonations(Model model, Principal principal) {
+        model.addAttribute("user", userService.findByUserName(principal.getName()));
+         return "user/my-donations";
+    }
+
+    @PostMapping("/my-donations")
+    public String donations() {
+        return "user/my-donations";
+    }
+
     @GetMapping("/edit")
     public String editProfile(Model model, Principal principal) {
         model.addAttribute("user", userService.findByUserName(principal.getName()));
@@ -42,7 +67,10 @@ public class UserController {
     }
 
     @PostMapping("/edit")
-    public String saveEditProfile(User user, Principal principal) {
+    public String saveEditProfile(@Validated(UserValidationGroup.class) User user, BindingResult result, Principal principal) {
+        if (result.hasErrors()) {
+            return "redirect:user/profile";
+        }
         userService.saveEditUser(user, principal.getName());
         return "redirect:/user/profile";
     }
@@ -70,5 +98,6 @@ public class UserController {
 
         return "redirect:/user/profile";
     }
+
 
 }

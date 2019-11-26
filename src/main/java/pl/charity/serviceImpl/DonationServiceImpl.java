@@ -33,4 +33,9 @@ public class DonationServiceImpl implements DonationService {
         donation.setUser(user);
         return donationRepo.save(donation);
     }
+
+    @Override
+    public List<Donation> findAllUserDonations(Long id) {
+        return donationRepo.findAllByUserId(id);
+    }
 }

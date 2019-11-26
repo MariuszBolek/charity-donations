@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<header>
+    <nav th:replace="fragments/header :: header"></nav>
+</header>
+<section class="login-page">
+    <h2>Moje darowizny</h2>
+    <!--   // <div sec:authorize="isAuthenticated()">Authenticated as <span sec:authentication="name"></span></div>-->
+    <div class="row">
+        <table class="about-us--text">
+            <thead>
+            <th>Data dodania</th>
+            <th>Ilość</th>
+            <th>Kategoria</th>
+            <th>Fundacja</th>
+            <th>Adres</th>
+            <th>Data</th>
+            <th>Opis</th>
+            </thead>
+            <tbody>
+            <tr th:block th:each="donation : ${donations}" class="help--slides-items">
+                <td style="font-size: large" ><span
+                        th:text="${donation.quantity}"></span></td>
+                <td style="font-size: large" ><span
+                        th:text="${donation.categories}"></span></td>
+                <td style="font-size: large" ><span
+                        th:text="${donation.institution}"></span></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<footer th:replace="fragments/footer :: footer"></footer>
+
+<script th:src="@{/js/app.js}"></script>
+</body>
+</html>
