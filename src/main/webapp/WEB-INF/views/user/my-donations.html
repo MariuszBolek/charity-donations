@@ -15,6 +15,7 @@
 <section class="login-page">
     <h2>Moje darowizny</h2>
     <!--   // <div sec:authorize="isAuthenticated()">Authenticated as <span sec:authentication="name"></span></div>-->
+<<<<<<< Updated upstream
     <div class="row">
         <table class="about-us--text">
             <thead>
@@ -37,6 +38,17 @@
             </tr>
             </tbody>
         </table>
+=======
+    <div class="about-us--text">
+
+        <ul th:each="${}">
+            <li style="font-size: large" sec:authorize="isAuthenticated()">e-mail: <span th:text="${user.email}"></span></li>
+            <li style="font-size: large" sec:authorize="isAuthenticated()">Imię: <span th:text="${user.firstName}"</span></li>
+            <li style="font-size: large" sec:authorize="isAuthenticated()">Nazwisko: <span th:text="${user.lastName}"></span></li>
+        </ul>
+        <a style="font-size: large" class="btn btn--without-border" th:href="@{/user/edit}">Edycja danych</a>
+        <a style="font-size: large" class="btn btn--without-border" th:href="@{/user/editpassword}">Zmiana hasła</a>
+>>>>>>> Stashed changes
     </div>
 </section>
 
