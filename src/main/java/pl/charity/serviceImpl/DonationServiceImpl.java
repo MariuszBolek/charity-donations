@@ -35,7 +35,8 @@ public class DonationServiceImpl implements DonationService {
     }
 
     @Override
-    public List<Donation> findAllByUserId(Long id) {
+    public List<Donation> findAllUserDonations(Long id) {
         return donationRepo.findAllByUserId(id);
     }
+
 }
