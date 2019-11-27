@@ -7,6 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Document</title>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <style>
+        th, td {
+            padding: 10px;
+            border: 1px solid #666;
+        }
+    </style>
 </head>
 <body>
 <header>
@@ -17,23 +23,24 @@
     <!--   // <div sec:authorize="isAuthenticated()">Authenticated as <span sec:authentication="name"></span></div>-->
 
     <div class="row">
-        <table class="about-us--text">
+        <table style="width:100%; margin:30px auto; border-collapse:collapse;">
             <thead>
             <th>Data dodania</th>
             <th>Ilość</th>
             <th>Kategoria</th>
             <th>Fundacja</th>
-            <th>Adres</th>
-            <th>Data</th>
-            <th>Opis</th>
+
             </thead>
             <tbody>
-            <tr th:block th:each="donation : ${donations}" class="help--slides-items">
-                <td style="font-size: large" ><span
+
+            <tr th:block th:each="donation : ${donations}">
+                <td><span
+                        th:text="${donation.pickUpDate}"></span></td>
+                <td><span
                         th:text="${donation.quantity}"></span></td>
-                <td th:block th:each="category : ${donation.categories}" style="font-size: large" ><span
+                <td th:block th:each="category : ${donation.categories}"><span
                         th:text="${category.name}"></span></td>
-                <td style="font-size: large" ><span
+                <td><span
                         th:text="${donation.institution.name}"></span></td>
             </tr>
             </tbody>
