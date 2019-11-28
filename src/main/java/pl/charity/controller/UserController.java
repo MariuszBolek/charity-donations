@@ -82,9 +82,9 @@ public class UserController {
 
     @PostMapping("/edit")
     public String saveEditProfile(@Validated(UserValidationGroup.class) User user, BindingResult result, Principal principal) {
-        if (result.hasErrors()) {
-            return "redirect:user/profile";
-        }
+//        if (result.hasErrors()) {
+//            return "redirect:/user/profile";
+//        }
         userService.saveEditUser(user, principal.getName());
         return "redirect:/user/profile";
     }
