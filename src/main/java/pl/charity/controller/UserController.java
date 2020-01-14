@@ -1,5 +1,7 @@
 package pl.charity.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -24,6 +26,8 @@ import java.util.Locale;
 
 @Controller
 public class UserController {
+
+
     private UserService userService;
     private DonationService donationService;
     private InstitutionService institutionService;

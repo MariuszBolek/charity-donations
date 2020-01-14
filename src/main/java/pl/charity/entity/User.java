@@ -36,6 +36,7 @@ public class User {
     @Size(min = 3, max = 20, groups = UserValidationGroup.class, message = "Nazwisko musi zawierać od 3 do 20 znaków")
     private String lastName;
 
+    @Column(name = "enabled")
     private boolean enabled;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -45,6 +46,12 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Donation> donations = new ArrayList<>();
+
+    public User() {
+        super();
+        this.enabled=false;
+    }
+
 
     public long getId() {
         return id;

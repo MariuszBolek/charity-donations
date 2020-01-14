@@ -1,5 +1,8 @@
 package pl.charity.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEvent;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -7,9 +10,12 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.ModelAndView;
 import pl.charity.entity.Donation;
 import pl.charity.entity.User;
 import pl.charity.service.UserService;
@@ -21,17 +27,18 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Set;
 
 @Controller
 public class LoginRegisterController {
+
 
     private UserService userService;
 
     public LoginRegisterController(UserService userService) {
         this.userService = userService;
     }
-
 
 
     @GetMapping("/login")
@@ -78,10 +85,18 @@ public class LoginRegisterController {
             return "register";
         }
 
+
         userService.saveUser(user);
         return "redirect:login";
     }
-}
+
+
+
+
+
+    }
+
+
 
 
 
