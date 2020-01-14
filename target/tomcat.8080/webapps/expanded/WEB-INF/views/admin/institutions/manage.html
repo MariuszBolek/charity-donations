@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<header>
+    <nav th:replace="fragments/header :: header"></nav>
+</header>
+<section class="login-page">
+    <h2>Lista Organizacji</h2>
+    <!--   // <div sec:authorize="isAuthenticated()">Authenticated as <span sec:authentication="name"></span></div>-->
+    <div class="about-us--text">
+
+        <a class="btn" font size="16" th:href="@{/admin/institutions/add}">Dodaj nową instytucję</a>
+
+        <table class="help--slides-items" th:if="${institution}">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nazwa</th>
+                <th scope="col">Opis</th>
+                <th></th>
+            </tr>
+            </thead>
+
+            <tbody th:each="inst :${institution}">
+
+            <tr>
+                <td class="subtitle" th:text="${inst.id}"></td>
+                <td class="subtitle" th:text="${inst.name}"></td>
+                <td class="subtitle" th:text="${inst.description}"></td>
+
+                <td><a class="btn btn--without-border" th:href="@{/admin/institutions/details(id=${inst.id})}">Pokaż
+                    Szczegóły</a></td>
+
+            </tr>
+
+
+            <tr height="15">
+                <td></td>
+            </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+</section>
+
+
+<script th:src="@{/js/app.js}"></script>
+</body>
+</html>

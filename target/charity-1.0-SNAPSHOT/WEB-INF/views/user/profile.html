@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<header>
+    <nav th:replace="fragments/header :: header"></nav>
+</header>
+<section class="login-page">
+    <h2>Moje dane</h2>
+<!--   // <div sec:authorize="isAuthenticated()">Authenticated as <span sec:authentication="name"></span></div>-->
+    <div class="about-us--text">
+        <ul>
+            <li style="font-size: large" sec:authorize="isAuthenticated()">e-mail: <span th:text="${user.email}"></span></li>
+            <li style="font-size: large" sec:authorize="isAuthenticated()">Imię: <span th:text="${user.firstName}"</span></li>
+            <li style="font-size: large" sec:authorize="isAuthenticated()">Nazwisko: <span th:text="${user.lastName}"></span></li>
+        </ul>
+
+
+        <a style="font-size: large" class="btn btn--without-border" th:href="@{/user/edit}">Edycja danych</a>
+        <a style="font-size: large" class="btn btn--without-border" th:href="@{/user/editpassword}">Zmiana hasła</a>
+    </div>
+</section>
+
+<footer th:replace="fragments/footer :: footer"></footer>
+
+<script th:src="@{/js/app.js}"></script>
+</body>
+</html>

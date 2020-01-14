@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<header>
+    <nav th:replace="fragments/header :: header"></nav>
+</header>
+<section class="login-page">
+    <h2>Lista Użytkowników</h2>
+    <!--   // <div sec:authorize="isAuthenticated()">Authenticated as <span sec:authentication="name"></span></div>-->
+    <div class="about-us--text">
+
+        <table class="help--slides-items" th:if="${users}">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Email</th>
+                <th scope="col">Imię</th>
+                <th scope="col">Nazwisko</th>
+                    <th sec:authorize="hasRole('SUPER')" scope="col">Uprawnienia</th>
+                    <th></th>
+            </tr>
+            </thead>
+
+            <tbody th:each="user :${users}">
+
+            <tr>
+                <td class="subtitle" th:text="${user.id}"></td>
+                <td class="subtitle" th:text="${user.email}"></td>
+                <td class="subtitle" th:text="${user.firstName}"></td>
+                <td class="subtitle" th:text="${user.lastName}"></td>
+                <td><a class="btn btn--without-border"  th:href="@{/admin/user/details(id=${user.id})}">Pokaż Szczegóły</a></td>
+
+            </tr>
+            <tr height="15"><td></td></tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+</section>
+
+
+<script th:src="@{/js/app.js}"></script>
+</body>
+</html>
