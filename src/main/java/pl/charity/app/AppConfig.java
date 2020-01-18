@@ -1,5 +1,6 @@
 package pl.charity.app;
 
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -34,7 +35,9 @@ import pl.charity.converters.CategoryConverter;
 import pl.charity.converters.InstitutionConverter;
 import pl.charity.service.InstitutionService;
 
+
 import javax.persistence.EntityManagerFactory;
+import java.net.URISyntaxException;
 import java.util.Locale;
 import java.util.Properties;
 
@@ -140,7 +143,6 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
     public CategoryConverter getCategoryConverter() {
         return new CategoryConverter();
     }
-
 
 
     @Override
